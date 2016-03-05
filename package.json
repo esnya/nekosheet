@@ -1,0 +1,27 @@
+{
+  "name": "nekosheet",
+  "version": "1.0.0",
+  "description": "Online character sheet.",
+  "main": "lib/server",
+  "scripts": {
+    "start": "node .",
+    "build": "gulp build",
+    "test": "gulp test",
+    "version": "update-changelog && git add CHANGELOG.md",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukatama/nekosheet.git"
+  },
+  "author": "ukatama",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ukatama/nekosheet/issues"
+  },
+  "homepage": "https://github.com/ukatama/nekosheet#readme",
+  "devDependencies": {
+    "nekodev": "file:nekodev",
+    "update-changelog": "^1.0.1"
+  }
+}
