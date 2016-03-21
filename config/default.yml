@@ -1,0 +1,10 @@
+database:
+    client: sqlite3
+    connection:
+        filename: tmp/db.sqlite
+listen:
+    host: localhost
+    port: 8000
+types:
+    sw2_character_ja: ソード・ワールド2.0/キャラクター
+    sw2_monster_ja: ソード・ワールド2.0/魔物

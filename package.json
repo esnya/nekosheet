@@ -1,14 +1,15 @@
 {
   "name": "nekosheet",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Online character sheet.",
   "main": "lib/server",
   "scripts": {
     "start": "node .",
     "build": "gulp build",
+    "production": "gulp production",
     "test": "gulp test",
     "version": "update-changelog && git add CHANGELOG.md",
-    "watch": "gulp watch"
+    "watch": "gulp build test serve watch"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,25 @@
   "devDependencies": {
     "nekodev": "file:nekodev",
     "update-changelog": "^1.0.1"
+  },
+  "dependencies": {
+    "axios": "^0.9.1",
+    "body-parser": "^1.15.0",
+    "config": "^1.19.0",
+    "connect-livereload": "^0.5.4",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "knex": "^0.10.0",
+    "lodash": "^4.6.1",
+    "log4js": "^0.6.33",
+    "material-ui": "^0.15.0-alpha.2",
+    "mysql2": "^1.0.0-rc.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.1",
+    "react-tap-event-plugin": "^0.2.2",
+    "redux": "^3.3.1",
+    "sanitize.css": "^3.3.0",
+    "sqlite3": "^3.1.1"
   }
 }

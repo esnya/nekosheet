@@ -1,0 +1,26 @@
+doctype html
+head
+    title Nekosheet
+    link(rel="stylesheet", href="css/sanitize.css")
+    style.
+        html, body, #app {
+            width: 100%;
+            height: 100%;
+        }
+        #loading {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: -webkit-flex;
+            -webkit-align-items: center;
+            -webkit-justify-content: center;
+        }
+body
+    div#app
+        div#loading
+            div Now Loading ...
+    script!= `INITIAL_ROUTE = ${JSON.stringify(route)};`
+    script!= `INITIAL_STATE = ${JSON.stringify(state)};`
+    script(src=script)
