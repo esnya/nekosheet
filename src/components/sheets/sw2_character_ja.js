@@ -7,19 +7,108 @@ import Paper from 'material-ui/lib/paper';
 import React, {PropTypes} from 'react';
 import {SheetField} from '../sheet-field';
 
+const Group = (props) => {
+    const {
+        children,
+        ...otherProps,
+    } = props;
+
+    const Style = {
+        margin: 16,
+        padding: Array.isArray(children) ? 16 : 0,
+    };
+
+    return (
+        <Paper {...otherProps} style={Style}>
+            {children}
+        </Paper>
+    );
+};
+Group.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.Element,
+        PropTypes.arrayOf(PropTypes.Element),
+    ]),
+};
+
+const Table = (props) => {
+    const {
+        children,
+        ...otherProps,
+    } = props;
+    const Style = {
+        width: 'calc(100% - 16px)',
+        margin: 8,
+        boxSizing: 'border-box',
+    };
+
+    return (
+        <table {...otherProps} style={Style}>
+            {children}
+        </table>
+    );
+};
+Table.propTypes = {
+    children: PropTypes.arrayOf(PropTypes.Element),
+};
+const Th = (props) => {
+    const {
+        children,
+        style,
+        ...otherProps,
+    } = props;
+    const Style = {
+        padding: 8,
+        verticalAlign: 'bottom',
+    };
+
+    return (
+        <th {...otherProps} style={{...Style, ...style}}>{children}</th>
+    );
+};
+Th.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.Element,
+        PropTypes.arrayOf(PropTypes.Element),
+    ]),
+    style: PropTypes.object,
+};
+const Td = (props) => {
+    const {
+        children,
+        style,
+        ...otherProps,
+    } = props;
+    const Style = {
+        padding: 8,
+        verticalAlign: 'bottom',
+    };
+
+    return (
+        <td {...otherProps} style={{...Style, ...style}}>{children}</td>
+    );
+};
+Td.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.Element,
+        PropTypes.arrayOf(PropTypes.Element),
+    ]),
+    style: PropTypes.object,
+};
+
 const AbilityTable = ({data, readOnly, changeHandler}) => (
-    <table style={{tableLayout: 'fixed'}}>
+    <Table>
         <thead>
             <tr>
-                <th colSpan={2}>能力値</th>
-                <th>成長</th>
-                <th>合計</th>
-                <th>ボーナス</th>
+                <Th colSpan={2}>能力値</Th>
+                <Th>成長</Th>
+                <Th>合計</Th>
+                <Th>ボーナス</Th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td rowSpan={2}>
+                <Td rowSpan={2}>
                     <SheetField
                         fullWidth
                         label="技"
@@ -28,8 +117,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_skill}
                         onChange={changeHandler('ability_skill')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="A"
@@ -38,8 +127,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_a}
                         onChange={changeHandler('ability_a')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly={readOnly}
@@ -47,8 +136,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_a}
                         onChange={changeHandler('growth_a')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -56,18 +145,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.dex}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.dex_bonus}
                     />
-                </td>
+                </Td>
             </tr>
             <tr>
-                <td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="B"
@@ -76,8 +165,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_b}
                         onChange={changeHandler('ability_b')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly={readOnly}
@@ -85,8 +174,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_b}
                         onChange={changeHandler('growth_b')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -94,18 +183,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.agi}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.agi_bonus}
                     />
-                </td>
+                </Td>
             </tr>
             <tr>
-                <td rowSpan={2}>
+                <Td rowSpan={2}>
                     <SheetField
                         fullWidth
                         label="体"
@@ -114,8 +203,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_body}
                         onChange={changeHandler('ability_body')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="C"
@@ -124,8 +213,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_c}
                         onChange={changeHandler('ability_c')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         label=" "
@@ -134,8 +223,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_c}
                         onChange={changeHandler('growth_c')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -143,18 +232,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.pow}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.pow_bonus}
                     />
-                </td>
+                </Td>
             </tr>
             <tr>
-                <td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="D"
@@ -163,8 +252,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_d}
                         onChange={changeHandler('ability_d')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly={readOnly}
@@ -172,8 +261,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_d}
                         onChange={changeHandler('growth_d')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -181,18 +270,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.vit}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.vit_bonus}
                     />
-                </td>
+                </Td>
             </tr>
             <tr>
-                <td rowSpan={2}>
+                <Td rowSpan={2}>
                     <SheetField
                         fullWidth
                         label="心"
@@ -201,8 +290,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_mind}
                         onChange={changeHandler('ability_mind')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="E"
@@ -211,8 +300,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_e}
                         onChange={changeHandler('ability_e')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         label=" "
@@ -221,8 +310,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_e}
                         onChange={changeHandler('growth_e')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -230,18 +319,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.int}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.int_bonus}
                     />
-                </td>
+                </Td>
             </tr>
             <tr>
-                <td>
+                <Td>
                     <SheetField
                         fullWidth
                         label="F"
@@ -250,8 +339,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.ability_f}
                         onChange={changeHandler('ability_f')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly={readOnly}
@@ -259,8 +348,8 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         value={data.growth_f}
                         onChange={changeHandler('growth_f')}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
@@ -268,18 +357,18 @@ const AbilityTable = ({data, readOnly, changeHandler}) => (
                         type="number"
                         value={data.spr}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <SheetField
                         fullWidth
                         readOnly
                         type="number"
                         value={data.spr_bonus}
                     />
-                </td>
+                </Td>
             </tr>
         </tbody>
-    </table>
+    </Table>
 );
 AbilityTable.propTypes = {
     changeHandler: PropTypes.func.isRequired,
@@ -289,7 +378,7 @@ AbilityTable.propTypes = {
 
 export const SkillTable = (props) => {
     const {
-        cchangeHandler,
+        changeHandler,
         data,
         pushHandler,
         readOnly,
@@ -298,7 +387,7 @@ export const SkillTable = (props) => {
 
     const itemElements = data.skills && data.skills.map((item, i) => (
         <tr key={i}>
-            <td>
+            <Td>
                 <SheetField
                     fullWidth
                     items={[
@@ -324,78 +413,324 @@ export const SkillTable = (props) => {
                     readOnly={readOnly}
                     type="select"
                     value={item.skill}
-                    onChange={cchangeHandler('skills', i, 'skill')}
+                    onChange={changeHandler('skills', i, 'skill')}
                 />
-            </td>
-            <td>
+            </Td>
+            <Td>
                 <SheetField
                     fullWidth
                     readOnly={readOnly}
                     type="number"
                     value={item.level}
-                    onChange={cchangeHandler('skills', i, 'level')}
+                    onChange={changeHandler('skills', i, 'level')}
                 />
-            </td>
-            <td>
+            </Td>
+            <Td>
                 <SheetField
                     fullWidth
                     readOnly
                     type="number"
                     value={item.magic_power}
                 />
-            </td>
-            <td>
+            </Td>
+            <Td>
                 <SheetField
                     fullWidth
                     readOnly
                     type="number"
                     value={item.next_exp}
                 />
-            </td>
-            <td>
+            </Td>
+            <Td>
                 <SheetField
                     fullWidth
                     readOnly
                     type="number"
                     value={item.total_exp}
                 />
-            </td>
-            <td style={{diaplay: readOnly ? 'none' : null}}>
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
                 <IconButton onTouchTap={removeHandler('skills', i)}>
                     <Delete />
                 </IconButton>
-            </td>
+            </Td>
         </tr>
     ));
 
     return (
-        <table style={{width: '100%'}}>
+        <Table>
             <thead>
                 <tr>
-                    <th>スキル</th>
-                    <th>レベル</th>
-                    <th>魔力</th>
-                    <th>次経験点</th>
-                    <th>累計経験点</th>
+                    <Th>スキル</Th>
+                    <Th>レベル</Th>
+                    <Th>魔力</Th>
+                    <Th>次経験点</Th>
+                    <Th>累計経験点</Th>
                 </tr>
             </thead>
             <tbody>{itemElements}</tbody>
             <tfoot>
                 <tr style={{display: readOnly ? 'none' : null}}>
-                    <td colSpan={5}>
+                    <Td colSpan={6}>
                         <FlatButton
                             label={<Add />}
                             style={{width: '100%'}}
                             onTouchTap={pushHandler('skills', {level: 1})}
                         />
-                    </td>
+                    </Td>
                 </tr>
             </tfoot>
-        </table>
+        </Table>
     );
 };
 SkillTable.propTypes = {
-    cchangeHandler: PropTypes.func.isRequired,
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const FeatTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.feats && data.feats.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.feat}
+                    onChange={changeHandler('feats', i, 'feat')}
+                />
+            </Td>
+            <Td style={{textAlign: 'center'}}>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="checkbox"
+                    value={item.auto}
+                    onChange={changeHandler('feats', i, 'auto')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.effect}
+                    onChange={changeHandler('feats', i, 'effect')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('feats', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>戦闘特技</Th>
+                    <Th>自動習得</Th>
+                    <Th>効果</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={4}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('feats', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+FeatTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const LanguageTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.languages && data.languages.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.language}
+                    onChange={changeHandler('languages', i, 'language')}
+                />
+            </Td>
+            <Td style={{textAlign: 'center'}}>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="checkbox"
+                    value={item.talk}
+                    onChange={changeHandler('languages', i, 'talk')}
+                />
+            </Td>
+            <Td style={{textAlign: 'center'}}>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="checkbox"
+                    value={item.read}
+                    onChange={changeHandler('languages', i, 'read')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('languages', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>言語</Th>
+                    <Th>会話</Th>
+                    <Th>読文</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={4}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('languages', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+LanguageTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+
+export const HonorTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.honors && data.honors.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.item}
+                    onChange={changeHandler('honors', i, 'item')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    label={null}
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.honor}
+                    onChange={changeHandler('honors', i, 'honor')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('honors', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>名誉アイテム</Th>
+                    <Th>名誉点</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={4}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('honors', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+                <tr>
+                    <Th>所持名誉点</Th>
+                    <Td>
+                        <SheetField
+                            fullWidth
+                            readOnly={readOnly}
+                            type="number"
+                            value={data.honor}
+                            onChange={changeHandler('honor')}
+                        />
+                    </Td>
+                </tr>
+                <tr>
+                    <Th>合計名誉点</Th>
+                    <Td>
+                        <SheetField
+                            fullWidth
+                            readOnly
+                            type="number"
+                            value={data.total_honor}
+                            onChange={changeHandler('total_honor')}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+HonorTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     pushHandler: PropTypes.func.isRequired,
     removeHandler: PropTypes.func.isRequired,
@@ -423,8 +758,7 @@ const EXP_A = [
 export const sw2_character_ja = (props) => {
     const {id, data, readOnly, onChange, onPush, onDelete} = props;
 
-    const changeHandler = (key) => (e, value) => onChange(id, key, value);
-    const cchangeHandler =
+    const changeHandler =
         (...keys) => (e, value) => onChange(id, keys.join('/'), value);
     const pushHandler = (key, value = {}) => () => onPush(id, key, value);
     const removeHandler = (key1, key2) => () => onDelete(id, key1, key2);
@@ -489,10 +823,12 @@ export const sw2_character_ja = (props) => {
             (data.fumble || 0) * 50 +
             (+data.exp || 0);
     }
+    data.total_honor = (+data.honor || 0) +
+        data.honors ? _(data.honors).map(({honor}) => +honor || 0).sum(): 0;
 
     return (
         <div>
-            <Paper style={{margin: 16, padding: 16}}>
+            <Group>
                 <SheetField
                     fullWidth
                     readOnly
@@ -559,15 +895,15 @@ export const sw2_character_ja = (props) => {
                     value={data.natinality}
                     onChange={changeHandler('natinality')}
                 />
-            </Paper>
-            <Paper style={{margin: 16}}>
+            </Group>
+            <Group>
                 <AbilityTable
                     changeHandler={changeHandler}
                     data={data}
                     readOnly={readOnly}
                 />
-            </Paper>
-            <Paper style={{margin: 16, padding: 16}}>
+            </Group>
+            <Group>
                 <SheetField
                     fullWidth
                     readOnly
@@ -596,16 +932,43 @@ export const sw2_character_ja = (props) => {
                     type="number"
                     value={data.mp}
                 />
-            </Paper>
-            <Paper style={{margin: 16}}>
+            </Group>
+            <Group>
                 <SkillTable
-                    cchangeHandler={cchangeHandler}
+                    changeHandler={changeHandler}
                     data={data}
                     pushHandler={pushHandler}
                     readOnly={readOnly}
                     removeHandler={removeHandler}
                 />
-            </Paper>
+            </Group>
+            <Group>
+                <FeatTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
+            <Group>
+                <LanguageTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
+            <Group>
+                <HonorTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
         </div>
     );
 };

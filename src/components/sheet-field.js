@@ -1,3 +1,4 @@
+import Checkbox from 'material-ui/lib/checkbox';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import TextField from 'material-ui/lib/text-field';
 import SelectField from 'material-ui/lib/select-field';
@@ -81,6 +82,18 @@ export class SheetField extends Component {
                 >
                     {itemElements}
                 </SelectField>
+            );
+        } else if (type === 'checkbox') {
+            return (
+                <Checkbox
+                    {...otherProps}
+                    checked={Boolean(value)}
+                    label={label}
+                    readOnly={readOnly}
+                    ref={(c) => (this.field = c)}
+                    style={{width: 16, display: 'inline-block'}}
+                    onCheck={onChange}
+                />
             );
         }
 
