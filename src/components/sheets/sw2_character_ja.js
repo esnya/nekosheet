@@ -10,16 +10,17 @@ import {SheetField} from '../sheet-field';
 const Group = (props) => {
     const {
         children,
+        style,
         ...otherProps,
     } = props;
 
     const Style = {
         margin: 16,
-        padding: Array.isArray(children) ? 16 : 0,
+        padding: Array.isArray(children) ? '0 16px' : 0,
     };
 
     return (
-        <Paper {...otherProps} style={Style}>
+        <Paper {...otherProps} style={{...Style, ...style}}>
             {children}
         </Paper>
     );
@@ -29,6 +30,7 @@ Group.propTypes = {
         PropTypes.Element,
         PropTypes.arrayOf(PropTypes.Element),
     ]),
+    style: PropTypes.object,
 };
 
 const Table = (props) => {
@@ -540,7 +542,7 @@ export const FeatTable = (props) => {
             <thead>
                 <tr>
                     <Th>戦闘特技</Th>
-                    <Th>自動習得</Th>
+                    <Th>自動</Th>
                     <Th>効果</Th>
                 </tr>
             </thead>
@@ -560,6 +562,72 @@ export const FeatTable = (props) => {
     );
 };
 FeatTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const TechTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.techs && data.techs.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.tech}
+                    onChange={changeHandler('techs', i, 'tech')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.effect}
+                    onChange={changeHandler('techs', i, 'effect')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('techs', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>練技/呪歌/騎芸/占瞳/鼓咆</Th>
+                    <Th>効果</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={4}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('techs', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+TechTable.propTypes = {
     changeHandler: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     pushHandler: PropTypes.func.isRequired,
@@ -643,7 +711,6 @@ LanguageTable.propTypes = {
     removeHandler: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
 };
-
 
 export const HonorTable = (props) => {
     const {
@@ -730,6 +797,377 @@ export const HonorTable = (props) => {
     );
 };
 HonorTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const WeaponTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.weapons && data.weapons.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.weapon}
+                    onChange={changeHandler('weapons', i, 'weapon')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.to_use}
+                    onChange={changeHandler('weapons', i, 'to_use')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.str_req}
+                    onChange={changeHandler('weapons', i, 'str_req')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.acc_cor}
+                    onChange={changeHandler('weapons', i, 'acc_cor')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly
+                    type="number"
+                    value={item.acc}
+                    onChange={changeHandler('weapons', i, 'acc')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact}
+                    onChange={changeHandler('weapons', i, 'impact')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_3}
+                    onChange={changeHandler('weapons', i, 'impact_3')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_4}
+                    onChange={changeHandler('weapons', i, 'impact_4')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_5}
+                    onChange={changeHandler('weapons', i, 'impact_5')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_6}
+                    onChange={changeHandler('weapons', i, 'impact_6')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_7}
+                    onChange={changeHandler('weapons', i, 'impact_7')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_8}
+                    onChange={changeHandler('weapons', i, 'impact_8')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_9}
+                    onChange={changeHandler('weapons', i, 'impact_9')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_10}
+                    onChange={changeHandler('weapons', i, 'impact_10')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_11}
+                    onChange={changeHandler('weapons', i, 'impact_11')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.impact_12}
+                    onChange={changeHandler('weapons', i, 'impact_12')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.critical}
+                    onChange={changeHandler('weapons', i, 'critical')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.damage_cor}
+                    onChange={changeHandler('weapons', i, 'damage_cor')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.damage}
+                    onChange={changeHandler('weapons', i, 'damage')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.note}
+                    onChange={changeHandler('weapons', i, 'note')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('weapons', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>武器</Th>
+                    <Th>用法</Th>
+                    <Th>必筋</Th>
+                    <Th>命中修正</Th>
+                    <Th>命中力</Th>
+                    <Th>威力</Th>
+                    <Th>③</Th>
+                    <Th>④</Th>
+                    <Th>⑤</Th>
+                    <Th>⑥</Th>
+                    <Th>⑦</Th>
+                    <Th>⑧</Th>
+                    <Th>⑨</Th>
+                    <Th>⑩</Th>
+                    <Th>⑪</Th>
+                    <Th>⑫</Th>
+                    <Th>C値</Th>
+                    <Th>ダメージ修正</Th>
+                    <Th>追加ダメージ</Th>
+                    <Th>備考</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={21}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('weapons', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+WeaponTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    pushHandler: PropTypes.func.isRequired,
+    removeHandler: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const OrnamentTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        readOnly,
+    } = props;
+
+    const tableLines = [
+        ['head', '頭'],
+        ['face', '顔'],
+        ['ear', '耳'],
+        ['neck', '首'],
+        ['back', '背中'],
+        ['rhand', '右手'],
+        ['lhand', '左手'],
+        ['waist', '腰'],
+        ['leg', '足'],
+        ['other', 'その他'],
+    ].map(([key, label]) => (
+        <tr key={key}>
+            <Th style={{verticalAlign: 'center'}}>{label}</Th>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={data[`ornament_${key}`]}
+                    onChange={changeHandler(`ornament_${key}`)}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={data[`ornament_${key}_effect`]}
+                    onChange={changeHandler(`ornament_${key}_effect`)}
+                />
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th />
+                    <Th>装飾品</Th>
+                    <Th>効果</Th>
+                </tr>
+            </thead>
+            <tbody>{tableLines}</tbody>
+        </Table>
+    );
+};
+OrnamentTable.propTypes = {
+    changeHandler: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    readOnly: PropTypes.bool,
+};
+
+export const SupplyTable = (props) => {
+    const {
+        changeHandler,
+        data,
+        pushHandler,
+        readOnly,
+        removeHandler,
+    } = props;
+
+    const itemElements = data.supplies && data.supplies.map((item, i) => (
+        <tr key={i}>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    value={item.supply}
+                    onChange={changeHandler('supplies', i, 'supply')}
+                />
+            </Td>
+            <Td>
+                <SheetField
+                    fullWidth
+                    readOnly={readOnly}
+                    type="number"
+                    value={item.count}
+                    onChange={changeHandler('supplies', i, 'count')}
+                />
+            </Td>
+            <Td style={{diaplay: readOnly ? 'none' : null}}>
+                <IconButton onTouchTap={removeHandler('supplies', i)}>
+                    <Delete />
+                </IconButton>
+            </Td>
+        </tr>
+    ));
+
+    return (
+        <Table>
+            <thead>
+                <tr>
+                    <Th>消耗品</Th>
+                    <Th>個数</Th>
+                </tr>
+            </thead>
+            <tbody>{itemElements}</tbody>
+            <tfoot>
+                <tr style={{display: readOnly ? 'none' : null}}>
+                    <Td colSpan={4}>
+                        <FlatButton
+                            label={<Add />}
+                            style={{width: '100%'}}
+                            onTouchTap={pushHandler('supplies', {auto: false})}
+                        />
+                    </Td>
+                </tr>
+            </tfoot>
+        </Table>
+    );
+};
+SupplyTable.propTypes = {
     changeHandler: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     pushHandler: PropTypes.func.isRequired,
@@ -824,7 +1262,34 @@ export const sw2_character_ja = (props) => {
             (+data.exp || 0);
     }
     data.total_honor = (+data.honor || 0) +
-        data.honors ? _(data.honors).map(({honor}) => +honor || 0).sum(): 0;
+        (data.honors ? _(data.honors).map(({honor}) => +honor || 0).sum() : 0);
+    const sage = data.skills &&
+        data.skills.find(({skill}) => skill && skill.match(/^セージ/));
+    const rider = data.skills &&
+        data.skills.find(({skill}) => skill && skill.match(/^ライダー/));
+    data.monster_lore = sage ? (+sage.level + data.int_bonus) : 0;
+    if (rider && rider.level > 0) {
+        data.monster_lore += ` (${+rider.level + data.int_bonus})`;
+    }
+    const scout_wl_level = data.skills &&
+        _(data.skills)
+            .filter(({skill}) => skill && skill.match(/^(スカウト|ウォーリーダー)/))
+            .map('level')
+            .max();
+    data.initiative = scout_wl_level > 0 ? scout_wl_level + data.int_bonus : 0;
+    data.limited_speed = 3;
+    data.speed = data.agi;
+    data.maximum_speed = data.speed * 3;
+    const evade_skill = data.skills &&
+        data.skills.find(({skill}) => skill && skill === data.evade_skill);
+    data.evasion =
+        (
+            evade_skill && evade_skill.level > 0
+                ? +evade_skill.level + data.agi_bonus
+                : 0
+        ) + (+data.armor_evasion || 0) + (+data.shield_evasion || 0);
+    data.protection =
+        (+data.armor_protection || 0) + (+data.shield_protection || 0);
 
     return (
         <div>
@@ -895,6 +1360,14 @@ export const sw2_character_ja = (props) => {
                     value={data.natinality}
                     onChange={changeHandler('natinality')}
                 />
+                <SheetField
+                    fullWidth
+                    label="穢れ"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.foul}
+                    onChange={changeHandler('foul')}
+                />
             </Group>
             <Group>
                 <AbilityTable
@@ -952,6 +1425,15 @@ export const sw2_character_ja = (props) => {
                 />
             </Group>
             <Group>
+                <TechTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
+            <Group>
                 <LanguageTable
                     changeHandler={changeHandler}
                     data={data}
@@ -962,6 +1444,225 @@ export const sw2_character_ja = (props) => {
             </Group>
             <Group>
                 <HonorTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
+            <Group style={{padding: '0 16px'}}>
+                <SheetField
+                    fullWidth
+                    multiLine
+                    label="経歴、メモ"
+                    readOnly={readOnly}
+                    value={data.note}
+                    onChange={changeHandler('note')}
+                />
+            </Group>
+            <Group>
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="魔物知識"
+                    type="number"
+                    value={data.monster_lore}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="先制力"
+                    type="number"
+                    value={data.initiative}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="制限移動"
+                    type="number"
+                    value={data.limited_speed}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="移動力"
+                    type="number"
+                    value={data.speed}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="全力移動"
+                    type="number"
+                    value={data.maximum_speed}
+                />
+            </Group>
+            <Group>
+                <WeaponTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    pushHandler={pushHandler}
+                    readOnly={readOnly}
+                    removeHandler={removeHandler}
+                />
+            </Group>
+            <Group>
+                <SheetField
+                    fullWidth
+                    label="鎧"
+                    readOnly={readOnly}
+                    value={data.armor}
+                    onChange={changeHandler('armor')}
+                />
+                <SheetField
+                    fullWidth
+                    label="必筋"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.armor_str_req}
+                    onChange={changeHandler('armor_str_req')}
+                />
+                <SheetField
+                    fullWidth
+                    label="回避修正"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.armor_evasion}
+                    onChange={changeHandler('armor_evasion')}
+                />
+                <SheetField
+                    fullWidth
+                    label="防護点"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.armor_protection}
+                    onChange={changeHandler('armor_protection')}
+                />
+                <SheetField
+                    fullWidth
+                    label="備考"
+                    readOnly={readOnly}
+                    value={data.armor_note}
+                    onChange={changeHandler('armor_note')}
+                />
+            </Group>
+            <Group>
+                <SheetField
+                    fullWidth
+                    label="盾"
+                    readOnly={readOnly}
+                    value={data.shield}
+                    onChange={changeHandler('shield')}
+                />
+                <SheetField
+                    fullWidth
+                    label="必筋"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.shield_str_req}
+                    onChange={changeHandler('shield_str_req')}
+                />
+                <SheetField
+                    fullWidth
+                    label="回避修正"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.shield_evasion}
+                    onChange={changeHandler('shield_evasion')}
+                />
+                <SheetField
+                    fullWidth
+                    label="防護点"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.shield_protection}
+                    onChange={changeHandler('shield_protection')}
+                />
+                <SheetField
+                    fullWidth
+                    label="備考"
+                    readOnly={readOnly}
+                    value={data.shield_note}
+                    onChange={changeHandler('shield_note')}
+                />
+            </Group>
+            <Group>
+                <SheetField
+                    fullWidth
+                    items={[
+                        '(選択なし)',
+                        'ファイター(近A)',
+                        'グラップラー(近A)',
+                        'フェンサー(近B)',
+                        'シューター(近B)',
+                    ]}
+                    label="回避技能"
+                    readOnly={readOnly}
+                    type="select"
+                    value={data.evade_skill}
+                    onChange={changeHandler('evade_skill')}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="回避力"
+                    type="number"
+                    value={data.evasion}
+                />
+                <SheetField
+                    fullWidth
+                    readOnly
+                    label="防護点"
+                    type="number"
+                    value={data.protection}
+                />
+            </Group>
+            <Group>
+                <OrnamentTable
+                    changeHandler={changeHandler}
+                    data={data}
+                    readOnly={readOnly}
+                />
+            </Group>
+            <Group>
+                <SheetField
+                    fullWidth
+                    label="所持金"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.money}
+                    onChange={changeHandler('money')}
+                />
+                <SheetField
+                    fullWidth
+                    label="貯金"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.deposit}
+                    onChange={changeHandler('deposit')}
+                />
+                <SheetField
+                    fullWidth
+                    label="借金"
+                    readOnly={readOnly}
+                    type="number"
+                    value={data.debit}
+                    onChange={changeHandler('debit')}
+                />
+            </Group>
+            <Group style={{padding: '0 16px'}}>
+                <SheetField
+                    fullWidth
+                    multiLine
+                    label="所持品"
+                    readOnly={readOnly}
+                    value={data.inventory}
+                    onChange={changeHandler('inventory')}
+                />
+            </Group>
+            <Group>
+                <SupplyTable
                     changeHandler={changeHandler}
                     data={data}
                     pushHandler={pushHandler}

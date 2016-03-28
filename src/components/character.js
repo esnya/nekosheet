@@ -30,6 +30,8 @@ export const Character = (props) => {
         />
     );
 
+    document.title = `${name || ''} - Nekosheet`;
+
     return (
         <div>
             <AppBar title={name} />

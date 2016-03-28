@@ -16,11 +16,6 @@ export class SheetField extends Component {
             onChange: PropTypes.func,
         };
     }
-    static get defaultProps() {
-        return {
-            label: ' ',
-        };
-    }
 
     handleBlur(e) {
         const {
