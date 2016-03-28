@@ -17,6 +17,9 @@ const Group = (props) => {
     const Style = {
         margin: 16,
         padding: Array.isArray(children) ? '0 16px' : 0,
+        overflow: 'hidden',
+        overflowX: 'auto',
+        WebkitOverflowScrolling: 'touch',
     };
 
     return (
