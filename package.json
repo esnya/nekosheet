@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/ukatama/nekosheet#readme",
   "devDependencies": {
+    "coveralls": "^2.11.9",
     "nekodev": "file:nekodev",
     "update-changelog": "^1.0.1"
   },
