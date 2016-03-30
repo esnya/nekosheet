@@ -35,7 +35,7 @@ export const router = (app) => {
     app.get('/', (req, res, next) =>
         knex('characters')
             .whereNull('deleted')
-            .orderBy('created ASC')
+            .orderBy('created', 'ASC')
             .then((characters) => res.render('index', {
                 script,
                 route: {
