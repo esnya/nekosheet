@@ -8,4 +8,5 @@ export const reducers = combineReducers({
     characters: immutable([]),
     dialogs,
     types: immutable({}),
+    user: immutable({}),
 });

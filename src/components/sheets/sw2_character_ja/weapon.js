@@ -1,15 +1,11 @@
-import Add from 'material-ui/lib/svg-icons/content/add';
 import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
-import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import Delete from 'material-ui/lib/svg-icons/action/delete';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
 import React, {PropTypes} from 'react';
 import {SheetField} from '../../sheet-field';
-import {Table, Thead, Tbody, Tfoot, Tr, Td, Th} from '../../sheet-table';
+import {Table, Thead, Tbody, Tr, Td, Th} from '../../sheet-table';
 
 export const WeaponTable = (props) => {
     const {
@@ -45,6 +41,13 @@ export const WeaponTable = (props) => {
                 </Td>
             );
         });
+        const deleteElement = readOnly ? null : (
+            <FlatButton
+                label={<Delete />}
+                style={{width: '100%'}}
+                onTouchTap={removeHandler('weapons', i)}
+            />
+        );
 
         return (
             <Card key={i} style={{margin: 16}}>
@@ -150,31 +153,29 @@ export const WeaponTable = (props) => {
                         <Thead><Tr><Th>2</Th>{impactHeaders}</Tr></Thead>
                         <Tbody><Tr><Th>*</Th>{impactElements}</Tr></Tbody>
                     </Table>
-                    <div style={{diaplay: readOnly ? 'none' : null}}>
-                        <FlatButton
-                            label={<Delete />}
-                            style={{width: '100%'}}
-                            onTouchTap={removeHandler('weapons', i)}
-                        />
-                    </div>
+                    {deleteElement}
                 </CardText>
             </Card>
         );
     });
 
+    const appendElement = readOnly ? null : (
+        <div style={{margin: '0 16px'}}>
+            <FlatButton
+                label="武器追加"
+                style={{width: '100%'}}
+                onTouchTap={pushHandler('weapons', {
+                    weapon: '(新しい武器)',
+                    critical: 10,
+                })}
+            />
+        </div>
+    );
+
     return (
         <div>
             {itemElements}
-            <div style={{display: readOnly ? 'none' : null, margin: '0 16px'}}>
-                <FlatButton
-                    label="武器追加"
-                    style={{width: '100%'}}
-                    onTouchTap={pushHandler('weapons', {
-                        weapon: '(新しい武器)',
-                        critical: 10,
-                    })}
-                />
-            </div>
+            {appendElement}
         </div>
     );
 };

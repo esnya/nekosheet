@@ -1,3 +1,4 @@
+guest: false
 database:
     client: sqlite3
     connection:
@@ -5,6 +6,12 @@ database:
 listen:
     host: localhost
     port: 8000
+redis:
+    host: localhost
+session:
+    resave: true
+    saveUninitialized: true
+    store: database
 types:
     sw2_character_ja: ソード・ワールド2.0/キャラクター
     sw2_monster_ja: ソード・ワールド2.0/魔物

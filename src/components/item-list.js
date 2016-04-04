@@ -58,20 +58,36 @@ export const ItemList = (props) => {
             );
         });
 
+        const deleteElement = readOnly ? null : (
+            <Td>
+                <IconButton
+                    onTouchTap={(e) => onDelete && onDelete(e, ikey)}
+                >
+                    <Delete />
+                </IconButton>
+            </Td>
+        );
+
         return (
             <Tr key={ikey}>
                 {columnElements}
-                <Td>
-                    <IconButton
-                        disabled={readOnly}
-                        onTouchTap={(e) => onDelete && onDelete(e, ikey)}
-                    >
-                        <Delete />
-                    </IconButton>
-                </Td>
+                {deleteElement}
             </Tr>
         );
     });
+
+    const appendElements = readOnly ? null : (
+        <Tr>
+            <Td colSpan={fields.length + 1}>
+                <FlatButton
+                    style={{width: '100%'}}
+                    onTouchTap={onAppend}
+                >
+                    <Add />
+                </FlatButton>
+            </Td>
+        </Tr>
+    );
 
     return (
         <Table>
@@ -82,16 +98,7 @@ export const ItemList = (props) => {
                 {itemElements}
             </Tbody>
             <Tfoot>
-                <Tr>
-                    <Td colSpan={fields.length + 1}>
-                        <FlatButton
-                            style={{width: '100%'}}
-                            onTouchTap={onAppend}
-                        >
-                            <Add />
-                        </FlatButton>
-                    </Td>
-                </Tr>
+                {appendElements}
                 {children}
             </Tfoot>
         </Table>

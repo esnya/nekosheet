@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {SheetField} from '../../sheet-field';
-import {Table, Thead, Tbody, Tfoot, Tr, Td, Th} from '../../sheet-table';
+import {Table, Thead, Tbody, Tr, Td, Th} from '../../sheet-table';
 
 export const AbilityTable = ({data, readOnly, changeHandler}) => {
     const lineElements = [

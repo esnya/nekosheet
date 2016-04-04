@@ -7,6 +7,7 @@ export const Character = connect(
     (state) => ({
         ...state.character,
         types: state.types,
+        readOnly: state.user.id !== state.character.user_id,
     }),
     (dispatch) => ({
         onChange: (id, key, value) => put(`/${id}/${key}`, {id, key, value})

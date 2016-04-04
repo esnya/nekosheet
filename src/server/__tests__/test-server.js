@@ -1,7 +1,10 @@
 describe('Server', () => {
+    jest.setMock('redis', {});
+
     jest.setMock('express', jest.fn());
     const express = require('express');
     const app = jest.fn();
+    app.use = jest.fn();
 
     jest.mock('http');
     const http = require('http');

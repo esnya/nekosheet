@@ -16,6 +16,7 @@ export const Home = (props) => {
                 iconElementRight={
                     <IconButton onTouchTap={onCreate}><Add /></IconButton>
                 }
+                showMenuIconButton={false}
                 title="Nekosheet"
             />
             <CharacterList />

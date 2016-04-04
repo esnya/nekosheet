@@ -1,5 +1,7 @@
 import AppBar from 'material-ui/lib/app-bar';
+import IconButton from 'material-ui/lib/icon-button';
 import Paper from 'material-ui/lib/paper';
+import ChevronLeft from 'material-ui/lib/svg-icons/navigation/chevron-left';
 import React, {PropTypes} from 'react';
 import {Character as CharacterShape} from '../shapes/character';
 import {SheetField} from './sheet-field';
@@ -10,6 +12,7 @@ export const Character = (props) => {
         id,
         data,
         name,
+        readOnly,
         type,
         types,
         user_id,
@@ -24,6 +27,7 @@ export const Character = (props) => {
         <Sheet
             data={data || {}}
             id={id}
+            readOnly={readOnly}
             onChange={onChange}
             onDelete={onDelete}
             onPush={onPush}
@@ -34,7 +38,14 @@ export const Character = (props) => {
 
     return (
         <div>
-            <AppBar title={name} />
+            <AppBar
+                iconElementLeft={
+                    <IconButton onTouchTap={() => (location.href = '/')}>
+                        <ChevronLeft />
+                    </IconButton>
+                }
+                title={name}
+            />
             <Paper style={{margin: 16, padding: 16}}>
                 <SheetField
                     fullWidth
@@ -55,6 +66,7 @@ export const Character = (props) => {
     );
 };
 Character.propTypes = Object.assign({
+    readOnly: PropTypes.bool.isRequired,
     types: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,

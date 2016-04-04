@@ -3,7 +3,7 @@ import config from 'config';
 import livereload from 'connect-livereload';
 import {createHash} from 'crypto';
 import express from 'express';
-import _, {fromPairs, map, merge, reject, set} from 'lodash';
+import _, {fromPairs, merge, reject, set} from 'lodash';
 import {connectLogger, getLogger} from 'log4js';
 import {join} from 'path';
 import {knex} from './knex';
@@ -26,6 +26,29 @@ export const router = (app) => {
     app.set('view engine', 'jade');
     app.set('views', path.views);
 
+    const guest = config.get('guest');
+    app.use((req, res, next) =>
+        knex('users')
+            .where(
+                'id',
+                req.session &&
+                    req.session.passport &&
+                    res.sessipn.passport.user
+            )
+            .first()
+            .then((user) => {
+                if (!user && !guest) return Promise.reject('User Not Found');
+
+                req.user = user || {id: 'guest', name: 'guest'};
+
+                return next();
+            })
+            .catch((e) => {
+                logger.error(e);
+                res.sendStatus(500);
+            })
+    );
+
     app.use(express.static(path.public));
     app.use(express.static(path.dist));
     app.use('/css', express.static(path.sanitize));
@@ -35,7 +58,7 @@ export const router = (app) => {
     app.get('/', (req, res, next) =>
         knex('characters')
             .whereNull('deleted')
-            .orderBy('created', 'ASC')
+            .orderBy('modified', 'DESC')
             .then((characters) => res.render('index', {
                 script,
                 route: {
@@ -49,10 +72,13 @@ export const router = (app) => {
             .catch(next)
     );
 
-    const getCharacter = (id) =>
+    const getCharacter = (id, user_id = null) =>
         knex('characters')
             .whereNull('deleted')
-            .where('id', id)
+            .where(user_id ? {
+                id,
+                user_id,
+            } : {id})
             .first()
             .then((character) => character || Promise.reject('Not Found'))
             .then((character) => ({
@@ -78,8 +104,9 @@ export const router = (app) => {
                         params: req.params,
                     },
                     state: {
-                        types: config.types,
                         character,
+                        types: config.types,
+                        user: req.user,
                     },
                 });
             })
@@ -98,7 +125,7 @@ export const router = (app) => {
                     .mapValues((a) => a || null)
                     .value(),
                 id,
-                user_id: 'guest',
+                user_id: req.user.id,
             })
             .then(() => res.send({
                 status: 'OK',
@@ -111,6 +138,7 @@ export const router = (app) => {
         knex('characters')
             .whereNull('deleted')
             .where('id', req.params.id)
+            .where('user_id', req.user.id)
             .update('name', req.body.value || null)
             .then(
                 () => knex('characters')
@@ -122,14 +150,10 @@ export const router = (app) => {
             .catch(next)
     );
     app.put('/:id/:key', json(), (req, res, next) =>
-        knex('characters')
-            .whereNull('deleted')
-            .where('id', req.params.id)
-            .first()
-            .then((character) => character || Promise.reject('Not Found'))
+        getCharacter(req.params.id, req.user.id)
             .then(
                 ({data}) => merge(
-                    data ? JSON.parse(data) : {},
+                    data || {},
                     fromPairs([[req.params.key, req.body.value]])
                 )
             )
@@ -144,13 +168,8 @@ export const router = (app) => {
             .catch(next)
     );
     app.post('/:id/:key', json(), (req, res, next) =>
-        knex('characters')
-            .whereNull('deleted')
-            .where('id', req.params.id)
-            .first()
-            .then((character) => character || Promise.reject('Not Found'))
-            .then(({data}) => data && JSON.parse(data) || {})
-            .then((data) => ({
+        getCharacter(req.params.id, req.user.id)
+            .then(({data}) => ({
                 ...data,
                 [req.params.key]: [
                     ...(data[req.params.key] || []),
@@ -167,15 +186,10 @@ export const router = (app) => {
             .then((character) => res.send(character))
             .catch(next)
     );
-    app.delete('/:id/:key1/:key2', json(), ({body, params}, res, next) =>
-        knex('characters')
-            .whereNull('deleted')
-            .where('id', params.id)
-            .first()
-            .then((character) => character || Promise.reject('Not Found'))
-            .then(({data}) => data ? JSON.parse(data) : {})
-            .then((data) => set(
-                data,
+    app.delete('/:id/:key1/:key2', json(),
+        ({body, params, user}, res, next) => getCharacter(params.id, user.id)
+            .then(({data}) => set(
+                data || {},
                 params.key1,
                 reject(data[params.key1], (v, k) => k === +params.key2)
             ))
@@ -189,15 +203,10 @@ export const router = (app) => {
             .then((character) => res.send(character))
             .catch(next)
     );
-    app.put('/:id/:key1/:key2/:key3', json(), ({body, params}, res, next) =>
-        knex('characters')
-            .whereNull('deleted')
-            .where('id', params.id)
-            .first()
-            .then((character) => character || Promise.reject('Not Found'))
-            .then(({data}) => data ? JSON.parse(data) : {})
-            .then((data) => set(
-                data,
+    app.put('/:id/:key1/:key2/:key3', json(),
+        ({body, params, user}, res, next) => getCharacter(params.id, user.id)
+            .then(({data}) => set(
+                data || {},
                 `${params.key1}.${params.key2}.${params.key3}`,
                 body.value
             ))

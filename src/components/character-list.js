@@ -6,11 +6,20 @@ import {Character} from '../shapes/character';
 export const CharacterListItem = (props) => {
     const {
         id,
+        user_id,
         name,
+        created,
+        modified,
     } = props;
 
     return (
-        <ListItem href={`/${id}`} primaryText={name} />
+        <ListItem
+            href={`/${id}`}
+            primaryText={name}
+            secondaryText={
+                `@${user_id} created:${created} modified:${modified}`
+            }
+        />
     );
 };
 CharacterListItem.propTypes = Character;
