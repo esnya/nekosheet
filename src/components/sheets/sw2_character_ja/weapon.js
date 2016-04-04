@@ -1,4 +1,9 @@
 import Add from 'material-ui/lib/svg-icons/content/add';
+import Card from 'material-ui/lib/card/card';
+import CardActions from 'material-ui/lib/card/card-actions';
+import CardHeader from 'material-ui/lib/card/card-header';
+import CardTitle from 'material-ui/lib/card/card-title';
+import CardText from 'material-ui/lib/card/card-text';
 import Delete from 'material-ui/lib/svg-icons/action/delete';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
@@ -16,7 +21,16 @@ export const WeaponTable = (props) => {
     } = props;
 
     const itemElements = data.weapons && data.weapons.map((item, i) => {
-        const impactElements = [3,4,5,6,7,8,9,10,11,12].map((n) => {
+        const skill = item.skill &&
+            data.skills.find(({skill}) => skill && skill === item.skill);
+        item.acc = (skill ? (+skill.level + data.dex_bonus) : 0) +
+            (+item.acc_cor || 0);
+        item.damage = (skill ? (+skill.level + data.str_bonus) : 0) +
+            (+item.damage_cor || 0);
+
+        const impacts = [3,4,5,6,7,8,9,10,11,12];
+        const impactHeaders = impacts.map((n) => <Th key={n}>{n}</Th>);
+        const impactElements = impacts.map((n) => {
             const key = `impact_${n}`;
 
             return (
@@ -33,143 +47,135 @@ export const WeaponTable = (props) => {
         });
 
         return (
-            <Tr key={i}>
-                <Td>
+            <Card key={i} style={{margin: 16}}>
+                <CardHeader
+                    actAsExpander
+                    showExpandableButton
+                    subtitle="武器"
+                    title={item.weapon}
+                />
+                <CardText expandable>
                     <SheetField
                         fullWidth
+                        label="名前"
                         readOnly={readOnly}
                         value={item.weapon}
                         onChange={changeHandler('weapons', i, 'weapon')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        label="用法"
                         readOnly={readOnly}
                         value={item.to_use}
                         onChange={changeHandler('weapons', i, 'to_use')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        label="必筋"
                         readOnly={readOnly}
                         type="number"
                         value={item.str_req}
                         onChange={changeHandler('weapons', i, 'str_req')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        items={[
+                            '(選択なし)',
+                            'ファイター(近A)',
+                            'グラップラー(近A)',
+                            'フェンサー(近B)',
+                            'シューター(近B)',
+                        ]}
+                        label="使用技能"
+                        readOnly={readOnly}
+                        type="select"
+                        value={item.skill}
+                        onChange={changeHandler('weapons', i, 'skill')}
+                    />
+                    <SheetField
+                        fullWidth
+                        label="命中修正"
                         readOnly={readOnly}
                         type="number"
                         value={item.acc_cor}
                         onChange={changeHandler('weapons', i, 'acc_cor')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
                         readOnly
+                        label="命中力"
                         type="number"
                         value={item.acc}
-                        onChange={changeHandler('weapons', i, 'acc')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        label="威力"
                         readOnly={readOnly}
                         type="number"
                         value={item.impact}
                         onChange={changeHandler('weapons', i, 'impact')}
                     />
-                </Td>
-                {impactElements}
-                <Td>
                     <SheetField
                         fullWidth
+                        label="C値"
                         readOnly={readOnly}
                         type="number"
                         value={item.critical}
                         onChange={changeHandler('weapons', i, 'critical')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        label="ダメージ修正"
                         readOnly={readOnly}
                         type="number"
                         value={item.damage_cor}
                         onChange={changeHandler('weapons', i, 'damage_cor')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
-                        readOnly={readOnly}
+                        readOnly
+                        label="追加ダメージ"
                         type="number"
                         value={item.damage}
-                        onChange={changeHandler('weapons', i, 'damage')}
                     />
-                </Td>
-                <Td>
                     <SheetField
                         fullWidth
+                        multiLine
+                        label="補足"
                         readOnly={readOnly}
                         value={item.note}
                         onChange={changeHandler('weapons', i, 'note')}
                     />
-                </Td>
-                <Td style={{diaplay: readOnly ? 'none' : null}}>
-                    <IconButton onTouchTap={removeHandler('weapons', i)}>
-                        <Delete />
-                    </IconButton>
-                </Td>
-            </Tr>
+                    <Table>
+                        <Thead><Tr><Th>2</Th>{impactHeaders}</Tr></Thead>
+                        <Tbody><Tr><Th>*</Th>{impactElements}</Tr></Tbody>
+                    </Table>
+                    <div style={{diaplay: readOnly ? 'none' : null}}>
+                        <FlatButton
+                            label={<Delete />}
+                            style={{width: '100%'}}
+                            onTouchTap={removeHandler('weapons', i)}
+                        />
+                    </div>
+                </CardText>
+            </Card>
         );
     });
 
     return (
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th>武器</Th>
-                    <Th>用法</Th>
-                    <Th>必筋</Th>
-                    <Th>命中修正</Th>
-                    <Th>命中力</Th>
-                    <Th>威力</Th>
-                    <Th>3</Th>
-                    <Th>4</Th>
-                    <Th>5</Th>
-                    <Th>6</Th>
-                    <Th>7</Th>
-                    <Th>8</Th>
-                    <Th>9</Th>
-                    <Th>10</Th>
-                    <Th>11</Th>
-                    <Th>12</Th>
-                    <Th>C値</Th>
-                    <Th>ダメージ修正</Th>
-                    <Th>追加ダメージ</Th>
-                    <Th>備考</Th>
-                </Tr>
-            </Thead>
-            <Tbody>{itemElements}</Tbody>
-            <Tfoot>
-                <Tr style={{display: readOnly ? 'none' : null}}>
-                    <Td colSpan={21}>
-                        <FlatButton
-                            label={<Add />}
-                            style={{width: '100%'}}
-                            onTouchTap={pushHandler('weapons', {auto: false})}
-                        />
-                    </Td>
-                </Tr>
-            </Tfoot>
-        </Table>
+        <div>
+            {itemElements}
+            <div style={{display: readOnly ? 'none' : null, margin: '0 16px'}}>
+                <FlatButton
+                    label="武器追加"
+                    style={{width: '100%'}}
+                    onTouchTap={pushHandler('weapons', {
+                        weapon: '(新しい武器)',
+                        critical: 10,
+                    })}
+                />
+            </div>
+        </div>
     );
 };
 WeaponTable.propTypes = {

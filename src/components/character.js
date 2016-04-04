@@ -22,7 +22,7 @@ export const Character = (props) => {
     const Sheet = sheets[type];
     const sheetElement = Sheet && (
         <Sheet
-            data={data}
+            data={data || {}}
             id={id}
             onChange={onChange}
             onDelete={onDelete}

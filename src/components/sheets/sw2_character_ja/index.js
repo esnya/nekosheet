@@ -424,15 +424,13 @@ export const sw2_character_ja = (props) => {
                     value={data.maximum_speed}
                 />
             </SheetPaper>
-            <SheetPaper>
-                <WeaponTable
-                    changeHandler={changeHandler}
-                    data={data}
-                    pushHandler={pushHandler}
-                    readOnly={readOnly}
-                    removeHandler={removeHandler}
-                />
-            </SheetPaper>
+            <WeaponTable
+                changeHandler={changeHandler}
+                data={data}
+                pushHandler={pushHandler}
+                readOnly={readOnly}
+                removeHandler={removeHandler}
+            />
             <SheetPaper>
                 <SheetField
                     fullWidth
@@ -604,13 +602,10 @@ export const sw2_character_ja = (props) => {
     );
 };
 sw2_character_ja.propTypes = {
+    data: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onPush: PropTypes.func.isRequired,
-    data: PropTypes.object,
     readOnly: PropTypes.bool,
-};
-sw2_character_ja.defaultProps = {
-    data: {},
 };

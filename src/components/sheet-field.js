@@ -20,6 +20,7 @@ export class SheetField extends Component {
     handleBlur(e) {
         const {
             readOnly,
+            type,
             value,
             onChange,
         } = this.props;
@@ -29,7 +30,7 @@ export class SheetField extends Component {
         const changed = this.getValue();
         if (value === changed) return;
 
-        onChange(e, changed);
+        onChange(e, type === 'number' ? +changed : changed);
     }
 
     getValue() {
