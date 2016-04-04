@@ -33,7 +33,7 @@ export const router = (app) => {
                 'id',
                 req.session &&
                     req.session.passport &&
-                    res.sessipn.passport.user
+                    req.session.passport.user
             )
             .first()
             .then((user) => {
