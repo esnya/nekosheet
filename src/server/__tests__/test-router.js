@@ -11,7 +11,7 @@ describe('routes', () => {
 
         const get = app.get.mock.calls.map((call) => call[0]);
         expect(get).toContain('/');
-        expect(get).toContain('/:id');
+        expect(get).toContain('/:id([0-9a-f]+)');
 
         const post = app.post.mock.calls.map((call) => call[0]);
         expect(post).toContain('/');

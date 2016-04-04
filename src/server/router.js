@@ -48,23 +48,41 @@ export const router = (app) => {
             }))
             .catch(next)
     );
-    app.get('/:id', (req, res, next) =>
+
+    const getCharacter = (id) =>
         knex('characters')
             .whereNull('deleted')
-            .where('id', req.params.id)
+            .where('id', id)
             .first()
             .then((character) => character || Promise.reject('Not Found'))
-            .then((character) => res.render('index', {
-                script,
-                route: {
-                    route: 'Character',
-                    params: req.params,
-                },
-                state: {
-                    types: config.types,
-                    character,
-                },
-            }))
+            .then((character) => ({
+                ...character,
+                data: character.data && JSON.parse(character.data),
+            }));
+    app.get('/:id([0-9a-f]+).json', (req, res, next) =>
+        getCharacter(req.params.id)
+            .then((character) => res.send(character))
+            .catch(next)
+    );
+    app.get('/:id([0-9a-f]+)', (req, res, next) =>
+        getCharacter(req.params.id)
+            .then((character) => {
+                if (!req.accepts('html') && req.accepts('json')) {
+                    return res.send(character);
+                }
+
+                return res.render('index', {
+                    script,
+                    route: {
+                        route: 'Character',
+                        params: req.params,
+                    },
+                    state: {
+                        types: config.types,
+                        character,
+                    },
+                });
+            })
             .catch(next)
     );
 

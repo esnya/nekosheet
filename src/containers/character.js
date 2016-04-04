@@ -6,7 +6,6 @@ import {Character as Component} from '../components/character';
 export const Character = connect(
     (state) => ({
         ...state.character,
-        data: state.character.data && JSON.parse(state.character.data),
         types: state.types,
     }),
     (dispatch) => ({
