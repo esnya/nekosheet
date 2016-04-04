@@ -139,12 +139,7 @@ export const router = (app) => {
                     .where('id', req.params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(
-                () => knex('characters')
-                    .whereNull('deleted')
-                    .where('id', req.params.id)
-                    .first()
-            )
+            .then(() => getCharacter(req.params.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -168,12 +163,7 @@ export const router = (app) => {
                     .where('id', req.params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(
-                () => knex('characters')
-                    .whereNull('deleted')
-                    .where('id', req.params.id)
-                    .first()
-            )
+            .then(() => getCharacter(req.params.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -195,12 +185,7 @@ export const router = (app) => {
                     .where('id', params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(
-                () => knex('characters')
-                    .whereNull('deleted')
-                    .where('id', params.id)
-                    .first()
-            )
+            .then(() => getCharacter(params.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -222,12 +207,7 @@ export const router = (app) => {
                     .where('id', params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(
-                () => knex('characters')
-                    .whereNull('deleted')
-                    .where('id', params.id)
-                    .first()
-            )
+            .then(() => getCharacter(params.id))
             .then((character) => res.send(character))
             .catch(next)
     );
