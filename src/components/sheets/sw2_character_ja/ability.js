@@ -33,7 +33,7 @@ export const AbilityTable = ({data, readOnly, changeHandler}) => {
         },
     ].map(({key, base, ability}) => {
         const baseElement = base && (
-            <Td rowSpan={2}>
+            <Td rowSpan={2} style={{verticalAlign: 'middle'}}>
                 <SheetField
                     fullWidth
                     label={base.label}
