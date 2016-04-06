@@ -4,6 +4,8 @@ import CardText from 'material-ui/lib/card/card-text';
 import Delete from 'material-ui/lib/svg-icons/action/delete';
 import FlatButton from 'material-ui/lib/flat-button';
 import React, {PropTypes} from 'react';
+import {Col} from '../../col';
+import {Row} from '../../row';
 import {SheetField} from '../../sheet-field';
 import {Table, Thead, Tbody, Tr, Td, Th} from '../../sheet-table';
 
@@ -50,104 +52,152 @@ export const WeaponTable = (props) => {
         );
 
         return (
-            <Card key={i} style={{margin: 16}}>
+            <Card key={i} style={{margin: '0 8px 16px'}}>
                 <CardHeader
                     actAsExpander
                     showExpandableButton
                     subtitle="武器"
                     title={item.weapon}
                 />
-                <CardText expandable>
-                    <SheetField
-                        fullWidth
-                        label="名前"
-                        readOnly={readOnly}
-                        value={item.weapon}
-                        onChange={changeHandler('weapons', i, 'weapon')}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="用法"
-                        readOnly={readOnly}
-                        value={item.to_use}
-                        onChange={changeHandler('weapons', i, 'to_use')}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="必筋"
-                        readOnly={readOnly}
-                        type="number"
-                        value={item.str_req}
-                        onChange={changeHandler('weapons', i, 'str_req')}
-                    />
-                    <SheetField
-                        fullWidth
-                        items={[
-                            '(選択なし)',
-                            'ファイター(近A)',
-                            'グラップラー(近A)',
-                            'フェンサー(近B)',
-                            'シューター(近B)',
-                        ]}
-                        label="使用技能"
-                        readOnly={readOnly}
-                        type="select"
-                        value={item.skill}
-                        onChange={changeHandler('weapons', i, 'skill')}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="命中修正"
-                        readOnly={readOnly}
-                        type="number"
-                        value={item.acc_cor}
-                        onChange={changeHandler('weapons', i, 'acc_cor')}
-                    />
-                    <SheetField
-                        fullWidth
-                        readOnly
-                        label="命中力"
-                        type="number"
-                        value={item.acc}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="威力"
-                        readOnly={readOnly}
-                        type="number"
-                        value={item.impact}
-                        onChange={changeHandler('weapons', i, 'impact')}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="C値"
-                        readOnly={readOnly}
-                        type="number"
-                        value={item.critical}
-                        onChange={changeHandler('weapons', i, 'critical')}
-                    />
-                    <SheetField
-                        fullWidth
-                        label="ダメージ修正"
-                        readOnly={readOnly}
-                        type="number"
-                        value={item.damage_cor}
-                        onChange={changeHandler('weapons', i, 'damage_cor')}
-                    />
-                    <SheetField
-                        fullWidth
-                        readOnly
-                        label="追加ダメージ"
-                        type="number"
-                        value={item.damage}
-                    />
+                <CardText expandable style={{padding: '0 8px 16px'}}>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="名前"
+                                readOnly={readOnly}
+                                value={item.weapon}
+                                onChange={
+                                    changeHandler('weapons', i, 'weapon')
+                                }
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                items={[
+                                    '(選択なし)',
+                                    'ファイター(近A)',
+                                    'グラップラー(近A)',
+                                    'フェンサー(近B)',
+                                    'シューター(近B)',
+                                ]}
+                                label="使用技能"
+                                readOnly={readOnly}
+                                type="select"
+                                value={item.skill}
+                                onChange={
+                                    changeHandler('weapons', i, 'skill')
+                                }
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="用法"
+                                readOnly={readOnly}
+                                value={item.to_use}
+                                onChange={
+                                    changeHandler('weapons', i, 'to_use')
+                                }
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="必筋"
+                                readOnly={readOnly}
+                                type="number"
+                                value={item.str_req}
+                                onChange={
+                                    changeHandler('weapons', i, 'str_req')
+                                }
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="命中修正"
+                                readOnly={readOnly}
+                                type="number"
+                                value={item.acc_cor}
+                                onChange={
+                                    changeHandler('weapons', i, 'acc_cor')
+                                }
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                readOnly
+                                label="命中力"
+                                type="number"
+                                value={item.acc}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="威力"
+                                readOnly={readOnly}
+                                type="number"
+                                value={item.impact}
+                                onChange={
+                                    changeHandler('weapons', i, 'impact')
+                                }
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="C値"
+                                readOnly={readOnly}
+                                type="number"
+                                value={item.critical}
+                                onChange={
+                                    changeHandler('weapons', i, 'critical')
+                                }
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="ダメージ修正"
+                                readOnly={readOnly}
+                                type="number"
+                                value={item.damage_cor}
+                                onChange={
+                                    changeHandler('weapons', i, 'damage_cor')
+                                }
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                readOnly
+                                label="追加ダメージ"
+                                type="number"
+                                value={item.damage}
+                            />
+                        </Col>
+                    </Row>
                     <SheetField
                         fullWidth
                         multiLine
                         label="補足"
                         readOnly={readOnly}
                         value={item.note}
-                        onChange={changeHandler('weapons', i, 'note')}
+                        onChange={
+                            changeHandler('weapons', i, 'note')
+                        }
                     />
                     <Table>
                         <Thead><Tr><Th>2</Th>{impactHeaders}</Tr></Thead>
@@ -160,7 +210,7 @@ export const WeaponTable = (props) => {
     });
 
     const appendElement = readOnly ? null : (
-        <div style={{margin: '0 16px'}}>
+        <div style={{margin: '0 8px 16px'}}>
             <FlatButton
                 label="武器追加"
                 style={{width: '100%'}}

@@ -4,7 +4,10 @@ import Paper from 'material-ui/lib/paper';
 import ChevronLeft from 'material-ui/lib/svg-icons/navigation/chevron-left';
 import React, {PropTypes} from 'react';
 import {Character as CharacterShape} from '../shapes/character';
+import {Col} from './col';
+import {Row} from './row';
 import {SheetField} from './sheet-field';
+import {SheetPaper} from './sheet-paper';
 import * as sheets from './sheets';
 
 export const Character = (props) => {
@@ -46,22 +49,37 @@ export const Character = (props) => {
                 }
                 title={name}
             />
-            <Paper style={{margin: 16, padding: 16}}>
-                <SheetField
-                    fullWidth
-                    label="Name"
-                    value={name}
-                    onChange={changeHandler('name')}
-                />
-                <SheetField fullWidth readOnly label="User" value={user_id} />
-                <SheetField
-                    fullWidth
-                    readOnly
-                    label="Type"
-                    value={types[type]}
-                />
-            </Paper>
-            {sheetElement}
+            <div style={{padding: '16px 8px 0'}}>
+                <SheetPaper style={{padding: '0 8px'}}>
+                    <Row>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                label="Name"
+                                value={name}
+                                onChange={changeHandler('name')}
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                readOnly
+                                label="User"
+                                value={user_id}
+                            />
+                        </Col>
+                        <Col style={{margin: '0 8px'}}>
+                            <SheetField
+                                fullWidth
+                                readOnly
+                                label="Type"
+                                value={types[type]}
+                            />
+                        </Col>
+                    </Row>
+                </SheetPaper>
+                {sheetElement}
+            </div>
         </div>
     );
 };

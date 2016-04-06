@@ -9,8 +9,8 @@ export const SheetPaper = (props) => {
     } = props;
 
     const Style = {
-        margin: 16,
-        padding: Array.isArray(children) ? '0 16px' : 0,
+        height: '100%',
+        margin: '0 8px 16px',
         overflow: 'hidden',
         overflowX: 'auto',
         WebkitOverflowScrolling: 'touch',
