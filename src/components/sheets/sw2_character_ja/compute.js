@@ -44,8 +44,8 @@ export const compute = (data) => {
         data[keys[2]] = sum;
         data[`${keys[2]}_bonus`] = Math.floor(sum / 6);
     });
-    data.vit_res = data.level * 3 + data.vit_bonus;
-    data.spr_res = data.level * 3 + data.spr_bonus;
+    data.vit_res = data.level + data.vit_bonus;
+    data.spr_res = data.level + data.spr_bonus;
     data.hp = data.level * 3 + data.vit;
     data.mp = (
         data.skills && _(data.skills)
