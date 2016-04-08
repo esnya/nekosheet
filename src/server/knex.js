@@ -12,6 +12,7 @@ export const initTable = () => {
             table.string('user_id').notNullable();
             table.string('name').notNullable();
             table.string('type').notNullable();
+            table.string('portrait').nullable();
             table.json('data').nullable();
             table
                 .timestamp('created')

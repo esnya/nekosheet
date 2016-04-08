@@ -53,6 +53,17 @@ export const router = (app) => {
     app.use(express.static(path.dist));
     app.use('/css', express.static(path.sanitize));
 
+    app.get('/image/:id', (req, res, next) =>
+        knex('images')
+            .whereNull('deleted')
+            .where('id', req.params.id)
+            .first()
+            .then(({data, type}) =>
+                res.type(type).send(data)
+            )
+            .catch(next)
+    );
+
     if (!production) app.use(livereload());
 
     app.get('/', (req, res, next) =>
@@ -83,6 +94,7 @@ export const router = (app) => {
             .then((character) => character || Promise.reject('Not Found'))
             .then((character) => ({
                 ...character,
+                portrait: character.portrait && `/image/${character.portrait}`,
                 data: character.data && JSON.parse(character.data),
             }));
     app.get('/:id([0-9a-f]+).json', (req, res, next) =>
@@ -134,18 +146,80 @@ export const router = (app) => {
             .catch(next);
     });
 
+    app.post('/:id/portrait', (req, res, next) => {
+        const contentType = req.get('Content-Type');
+        if (!contentType ||
+            !contentType.match(/^image\/(jpeg|png|gif|bmp)$/)
+        ) {
+            return res.sendStatus(415);
+        }
+
+        const contentLength = +req.get('Content-Length');
+        if (!contentLength) return res.sendStatus(411);
+        else if (contentLength > 64 * 1024 * 1024) {
+            return res.sendStatus(413);
+        }
+
+        const chunks = [];
+        req.on('data', (chunk) => {
+            chunks.push(chunk);
+        });
+        req.on('end', () => {
+            const id = createHash('sha1')
+                .update(`{${Math.random() * Date.now()}`)
+                .digest('hex');
+
+            return knex('images')
+                .insert({
+                    id,
+                    user_id: req.user.id,
+                    type: contentType,
+                    data: Buffer.concat(chunks),
+                })
+                .then(
+                    () => knex('characters')
+                        .whereNull('deleted')
+                        .where('id', req.params.id)
+                        .where('user_id', req.user.id)
+                        .update('portrait', id)
+                )
+                .then(() => getCharacter(req.params.id, req.user.id))
+                .then((character) => res.send(character))
+                .catch(next);
+        });
+    });
+    app.delete('/:id/portrait', (req, res, next) =>
+        knex('characters')
+            .whereNull('deleted')
+            .where('id', req.params.id)
+            .where('user_id', req.user.id)
+            .first('portrait')
+            .then(({portrait}) =>
+                knex('images')
+                    .whereNull('deleted')
+                    .where('id', portrait)
+                    .where('user_id', req.user.id)
+                    .update('deleted', knex.fn.now())
+            )
+            .then(() =>
+                knex('characters')
+                    .whereNull('deleted')
+                    .where('id', req.params.id)
+                    .where('user_id', req.user.id)
+                    .update('portrait', null)
+            )
+            .then(() => getCharacter(req.params.id))
+            .then((character) => res.send(character))
+            .catch(next)
+    );
+
     app.put('/:id/name', json(), (req, res, next) =>
         knex('characters')
             .whereNull('deleted')
             .where('id', req.params.id)
             .where('user_id', req.user.id)
             .update('name', req.body.value || null)
-            .then(
-                () => knex('characters')
-                    .whereNull('deleted')
-                    .where('id', req.params.id)
-                    .first()
-            )
+            .then(() => getCharacter(req.params.id))
             .then((character) => res.send(character))
             .catch(next)
     );

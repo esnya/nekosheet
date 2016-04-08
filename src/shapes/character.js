@@ -13,5 +13,6 @@ export const Character = {
         PropTypes.number,
         PropTypes.string,
     ]).isRequired,
+    portrait: PropTypes.string,
     data: PropTypes.object,
 };
