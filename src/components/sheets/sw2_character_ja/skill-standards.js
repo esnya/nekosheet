@@ -3,7 +3,7 @@ import {Col} from '../../col';
 import {Row} from '../../row';
 import {SheetField} from '../../sheet-field';
 
-export const SkillStandards = ({changeHandler, data, readOnly}) => (
+export const SkillStandards = ({data}) => (
     <div style={{margin: '0 8px'}}>
         <Row>
             <Col width={80}>
@@ -57,7 +57,5 @@ export const SkillStandards = ({changeHandler, data, readOnly}) => (
     </div>
 );
 SkillStandards.propTypes = {
-    changeHandler: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
-    readOnly: PropTypes.bool.isRequired,
 };

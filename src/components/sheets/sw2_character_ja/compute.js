@@ -18,10 +18,7 @@ const EXP_A = [
     ...EXP_B.slice(2),
 ];
 
-export const compute = (data) => {
-    data.level = data.skills && _(data.skills)
-        .map('level')
-        .max();
+const computeAbility = (data) => {
     [
         ['skill', 'a', 'dex'],
         ['skill', 'b', 'agi'],
@@ -44,6 +41,13 @@ export const compute = (data) => {
         data[keys[2]] = sum;
         data[`${keys[2]}_bonus`] = Math.floor(sum / 6);
     });
+};
+
+export const compute = (data) => {
+    data.level = data.skills && _(data.skills)
+        .map('level')
+        .max();
+    computeAbility(data);
     data.vit_res = data.level + data.vit_bonus;
     data.spr_res = data.level + data.spr_bonus;
     data.hp = data.level * 3 + data.vit;

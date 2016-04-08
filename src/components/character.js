@@ -1,6 +1,5 @@
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
-import Paper from 'material-ui/lib/paper';
 import ChevronLeft from 'material-ui/lib/svg-icons/navigation/chevron-left';
 import React, {PropTypes} from 'react';
 import {Character as CharacterShape} from '../shapes/character';

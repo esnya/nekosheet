@@ -3,7 +3,7 @@ import {Col} from '../../col';
 import {Row} from '../../row';
 import {SheetField} from '../../sheet-field';
 
-export const BasicStandards = ({changeHandler, data, readOnly}) => (
+export const BasicStandards = ({data}) => (
     <div style={{margin: '0 8px'}}>
         <Row>
             <Col width={80}>
@@ -48,7 +48,5 @@ export const BasicStandards = ({changeHandler, data, readOnly}) => (
     </div>
 );
 BasicStandards.propTypes = {
-    changeHandler: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
-    readOnly: PropTypes.bool.isRequired,
 };
