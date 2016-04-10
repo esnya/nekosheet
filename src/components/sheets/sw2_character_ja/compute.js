@@ -123,8 +123,8 @@ export const compute = (data) => {
     computeAbility(data);
     data.vit_res = data.level + data.vit_bonus;
     data.spr_res = data.level + data.spr_bonus;
-    data.hp = data.level * 3 + data.vit;
-    data.mp = (
+    data.hp = (+data.hp || 0) + data.level * 3 + data.vit;
+    data.mp = (+data.mp || 0) + (
         data.skills && _(data.skills)
             .filter(({skill}) => skill && skill.match(/\(魔[AB]\)$/))
             .map('level')
