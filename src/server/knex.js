@@ -13,6 +13,9 @@ export const initTable = () => {
             table.string('name').notNullable();
             table.string('type').notNullable();
             table.string('portrait').nullable();
+            table.boolean('private')
+                .notNullable()
+                .default(false);
             table.json('data').nullable();
             table
                 .timestamp('created')

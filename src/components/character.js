@@ -76,6 +76,18 @@ export class Character extends Component {
                 onTouchTap={() => onDeletePortrait(id)}
             />
         );
+        const privateCheckbox = readOnly ? null : (
+            <Col style={{margin: '0px 8px 4px'}}>
+                <SheetField
+                    label="Private"
+                    labelPosition="right"
+                    labelStyle={{left: 10}}
+                    type="checkbox"
+                    value={this.props.private}
+                    onChange={changeHandler('private')}
+                />
+            </Col>
+        );
 
         return (
             <div>
@@ -114,11 +126,12 @@ export class Character extends Component {
                             {portraitDeleteButton}
                         </CardActions>
                         <CardText style={{padding: '0 8px'}}>
-                            <Row>
+                            <Row style={{alignItems: 'end'}}>
                                 <Col style={{margin: '0 8px'}}>
                                     <SheetField
                                         fullWidth
                                         label="Name"
+                                        readOnly={readOnly}
                                         value={name}
                                         onChange={changeHandler('name')}
                                     />
@@ -139,6 +152,7 @@ export class Character extends Component {
                                         value={types[type]}
                                     />
                                 </Col>
+                                {privateCheckbox}
                             </Row>
                         </CardText>
                     </Card>

@@ -1,4 +1,5 @@
 import {map} from 'lodash';
+import Checkbox from 'material-ui/lib/checkbox';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
@@ -21,6 +22,7 @@ export class CreateDialog extends Component {
 
         this.state = {
             type: null,
+            isPrivate: false,
         };
     }
 
@@ -31,6 +33,7 @@ export class CreateDialog extends Component {
         this.props.onCreate({
             name: this.name.getValue(),
             type: this.state.type,
+            private: this.state.isPrivate,
         });
     }
 
@@ -49,6 +52,7 @@ export class CreateDialog extends Component {
             onClose,
         } = this.props;
         const {
+            isPrivate,
             type,
         } = this.state;
 
@@ -101,6 +105,12 @@ export class CreateDialog extends Component {
                     >
                         {typeElements}
                     </SelectField>
+                    <Checkbox
+                        checked={isPrivate}
+                        label="Private"
+                        name="private"
+                        onCheck={(e, c) => this.setState({isPrivate: c})}
+                    />
                 </form>
             </Dialog>
         );

@@ -69,6 +69,10 @@ export const router = (app) => {
     app.get('/', (req, res, next) =>
         knex('characters')
             .whereNull('deleted')
+            .where(function() {
+                this.where('user_id', req.user.id)
+                    .orWhereNot('private', true);
+            })
             .orderBy('modified', 'DESC')
             .then((characters) => res.render('index', {
                 script,
@@ -83,13 +87,17 @@ export const router = (app) => {
             .catch(next)
     );
 
-    const getCharacter = (id, user_id = null) =>
+    const getCharacter = (id, user_id, write = false) =>
         knex('characters')
             .whereNull('deleted')
-            .where(user_id ? {
+            .where(write ? {
                 id,
                 user_id,
             } : {id})
+            .where(function() {
+                this.where('user_id', user_id)
+                    .orWhereNot('private', true);
+            })
             .first()
             .then((character) => character || Promise.reject('Not Found'))
             .then((character) => ({
@@ -103,7 +111,7 @@ export const router = (app) => {
             .catch(next)
     );
     app.get('/:id([0-9a-f]+)', (req, res, next) =>
-        getCharacter(req.params.id)
+        getCharacter(req.params.id, req.user.id)
             .then((character) => {
                 if (!req.accepts('html') && req.accepts('json')) {
                     return res.send(character);
@@ -137,6 +145,7 @@ export const router = (app) => {
                     .mapValues((a) => a || null)
                     .value(),
                 id,
+                private: req.body.private ? 1 : 0,
                 user_id: req.user.id,
             })
             .then(() => res.send({
@@ -208,7 +217,7 @@ export const router = (app) => {
                     .where('user_id', req.user.id)
                     .update('portrait', null)
             )
-            .then(() => getCharacter(req.params.id))
+            .then(() => getCharacter(req.params.id, req.user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -219,7 +228,17 @@ export const router = (app) => {
             .where('id', req.params.id)
             .where('user_id', req.user.id)
             .update('name', req.body.value || null)
-            .then(() => getCharacter(req.params.id))
+            .then(() => getCharacter(req.params.id, req.user.id))
+            .then((character) => res.send(character))
+            .catch(next)
+    );
+    app.put('/:id/private', json(), (req, res, next) =>
+        knex('characters')
+            .whereNull('deleted')
+            .where('id', req.params.id)
+            .where('user_id', req.user.id)
+            .update('private', req.body.value ? 1 : 0)
+            .then(() => getCharacter(req.params.id, req.user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -237,7 +256,7 @@ export const router = (app) => {
                     .where('id', req.params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(() => getCharacter(req.params.id))
+            .then(() => getCharacter(req.params.id, req.user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -256,7 +275,7 @@ export const router = (app) => {
                     .where('id', req.params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(() => getCharacter(req.params.id))
+            .then(() => getCharacter(req.params.id, req.user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -273,7 +292,7 @@ export const router = (app) => {
                     .where('id', params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(() => getCharacter(params.id))
+            .then(() => getCharacter(params.id, user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
@@ -290,7 +309,7 @@ export const router = (app) => {
                     .where('id', params.id)
                     .update('data', JSON.stringify(data))
             )
-            .then(() => getCharacter(params.id))
+            .then(() => getCharacter(params.id, user.id))
             .then((character) => res.send(character))
             .catch(next)
     );
