@@ -91,6 +91,7 @@ export class Character extends Component {
 
         return (
             <div>
+                <a id="top" />
                 <AppBar
                     iconElementLeft={
                         <IconButton onTouchTap={() => (location.href = '/')}>

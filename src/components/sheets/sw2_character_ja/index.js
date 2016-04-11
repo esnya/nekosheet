@@ -15,6 +15,7 @@ import {Money} from './money';
 import {OrnamentTable} from './ornament';
 import {Shield} from './shield';
 import {SkillStandards} from './skill-standards';
+import {TableOfContents} from './table-of-contents';
 import {WeaponTable} from './weapon';
 
 export const sw2_character_ja = (props) => {
@@ -32,6 +33,8 @@ export const sw2_character_ja = (props) => {
 
     return (
         <div>
+            <TableOfContents />
+            <a id="basis" />
             <SheetPaper>
                 <Basis
                     changeHandler={changeHandler}
@@ -39,6 +42,7 @@ export const sw2_character_ja = (props) => {
                     readOnly={readOnly}
                 />
             </SheetPaper>
+            <a id="ability" />
             <SheetPaper>
                 <AbilityTable
                     changeHandler={changeHandler}
@@ -46,6 +50,7 @@ export const sw2_character_ja = (props) => {
                     readOnly={readOnly}
                 />
             </SheetPaper>
+            <a id="standards" />
             <Row style={{marginBottom: 16}}>
                 <Col width={200}>
                     <SheetPaper>
@@ -66,6 +71,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
+            <a id="skill" />
             <SheetPaper>
                 <ItemList
                     fields={[
@@ -121,6 +127,7 @@ export const sw2_character_ja = (props) => {
                     onDelete={deleteHandler('skills')}
                 />
             </SheetPaper>
+            <a id="feat" />
             <Row style={{marginBottom: 16}}>
                 <Col>
                     <SheetPaper>
@@ -156,6 +163,7 @@ export const sw2_character_ja = (props) => {
             </Row>
             <Row style={{marginBottom: 16}}>
                 <Col>
+                    <a id="language" />
                     <SheetPaper>
                         <ItemList
                             fields={[
@@ -172,6 +180,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
                 <Col>
+                    <a id="honor" />
                     <SheetPaper>
                         <ItemList
                             fields={[
@@ -212,6 +221,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
+            <a id="note" />
             <SheetPaper style={{padding: '0 16px'}}>
                 <SheetField
                     fullWidth
@@ -222,6 +232,7 @@ export const sw2_character_ja = (props) => {
                     onChange={changeHandler('note')}
                 />
             </SheetPaper>
+            <a id="weapon" />
             <WeaponTable
                 changeHandler={changeHandler}
                 data={data}
@@ -231,6 +242,7 @@ export const sw2_character_ja = (props) => {
             />
             <Row style={{marginBottom: 16}}>
                 <Col width={200}>
+                    <a id="armor" />
                     <SheetPaper>
                         <Armor
                             changeHandler={changeHandler}
@@ -240,6 +252,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
                 <Col width={200}>
+                    <a id="shield" />
                     <SheetPaper>
                         <Shield
                             changeHandler={changeHandler}
@@ -249,6 +262,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
+            <a id="combat" />
             <SheetPaper>
                 <CombatStandards
                     changeHandler={changeHandler}
@@ -256,6 +270,7 @@ export const sw2_character_ja = (props) => {
                     readOnly={readOnly}
                 />
             </SheetPaper>
+            <a id="ornament" />
             <SheetPaper>
                 <OrnamentTable
                     changeHandler={changeHandler}
@@ -263,6 +278,7 @@ export const sw2_character_ja = (props) => {
                     readOnly={readOnly}
                 />
             </SheetPaper>
+            <a id="money" />
             <SheetPaper>
                 <Money
                     changeHandler={changeHandler}
@@ -272,6 +288,7 @@ export const sw2_character_ja = (props) => {
             </SheetPaper>
             <Row>
                 <Col>
+                    <a id="inventory" />
                     <SheetPaper style={{padding: '0 8px'}}>
                         <SheetField
                             fullWidth
@@ -284,6 +301,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
                 <Col>
+                    <a id="supply" />
                     <SheetPaper>
                         <ItemList
                             fields={[
