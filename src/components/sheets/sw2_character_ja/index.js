@@ -33,7 +33,6 @@ export const sw2_character_ja = (props) => {
 
     return (
         <div>
-            <TableOfContents />
             <a id="basis" />
             <SheetPaper>
                 <Basis
@@ -317,6 +316,7 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
+            <TableOfContents />
         </div>
     );
 };
