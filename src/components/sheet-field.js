@@ -1,7 +1,7 @@
-import Checkbox from 'material-ui/lib/checkbox';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import TextField from 'material-ui/lib/text-field';
-import SelectField from 'material-ui/lib/select-field';
+import Checkbox from 'material-ui/Checkbox';
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
 import React, {Component, PropTypes} from 'react';
 
 export class SheetField extends Component {

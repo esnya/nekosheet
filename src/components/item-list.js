@@ -1,7 +1,7 @@
-import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
-import Delete from 'material-ui/lib/svg-icons/action/delete';
-import Add from 'material-ui/lib/svg-icons/content/add';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Add from 'material-ui/svg-icons/content/add';
 import React, {PropTypes} from 'react';
 import {SheetField} from './sheet-field';
 import {Table, Thead, Tbody, Tfoot, Tr, Td, Th} from './sheet-table';

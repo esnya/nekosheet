@@ -1,6 +1,6 @@
-import AppBar from 'material-ui/lib/app-bar';
-import IconButton from 'material-ui/lib/icon-button';
-import Add from 'material-ui/lib/svg-icons/content/add';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import Add from 'material-ui/svg-icons/content/add';
 import React, {PropTypes} from 'react';
 import {CharacterList} from '../containers/character-list';
 import {CreateDialog} from '../containers/create-dialog';

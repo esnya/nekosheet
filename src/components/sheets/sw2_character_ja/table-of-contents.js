@@ -1,9 +1,9 @@
-import IconButton from 'material-ui/lib/icon-button';
-import Menu from 'material-ui/lib/menus/menu';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import Toc from 'material-ui/lib/svg-icons/action/toc';
-import Paper from 'material-ui/lib/paper';
-import Popover from 'material-ui/lib/popover/popover';
+import IconButton from 'material-ui/IconButton';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Toc from 'material-ui/svg-icons/action/toc';
+import Paper from 'material-ui/Paper';
+import Popover from 'material-ui/Popover/Popover';
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 

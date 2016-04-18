@@ -1,5 +1,5 @@
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
 import React, {PropTypes} from 'react';
 import {Character} from '../shapes/character';
 

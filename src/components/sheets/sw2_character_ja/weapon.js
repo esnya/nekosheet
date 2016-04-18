@@ -1,8 +1,8 @@
-import Card from 'material-ui/lib/card/card';
-import CardHeader from 'material-ui/lib/card/card-header';
-import CardText from 'material-ui/lib/card/card-text';
-import Delete from 'material-ui/lib/svg-icons/action/delete';
-import FlatButton from 'material-ui/lib/flat-button';
+import Card from 'material-ui/Card/Card';
+import CardHeader from 'material-ui/Card/CardHeader';
+import CardText from 'material-ui/Card/CardText';
+import Delete from 'material-ui/svg-icons/action/delete';
+import FlatButton from 'material-ui/FlatButton';
 import React, {PropTypes} from 'react';
 import {Col} from '../../col';
 import {Row} from '../../row';

@@ -1,4 +1,4 @@
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 import React, {PropTypes} from 'react';
 
 export const SheetPaper = (props) => {
