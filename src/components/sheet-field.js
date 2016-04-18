@@ -93,6 +93,12 @@ export class SheetField extends Component {
             );
         }
 
+        const onNumberChange = (onChange && type === 'number') ? (e, v) => {
+            if (e.target !== document.activeElement) {
+                onChange(e, +v);
+            }
+        } : null;
+
         return (
             <TextField
                 {...otherProps}
@@ -104,6 +110,7 @@ export class SheetField extends Component {
                 type={readOnly ? 'text' : type}
                 underlineShow={!readOnly}
                 onBlur={(e) => this.handleBlur(e)}
+                onChange={onNumberChange}
             />
         );
     }
