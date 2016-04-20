@@ -173,7 +173,7 @@ export const compute = (data) => {
             .filter(({skill}) => skill && skill.match(/^(スカウト|ウォーリーダー)/))
             .map('level')
             .max();
-    data.initiative = scout_wl_level > 0 ? scout_wl_level + data.int_bonus : 0;
+    data.initiative = scout_wl_level > 0 ? scout_wl_level + data.agi_bonus : 0;
     data.limited_speed = data.limited_speed || 3;
     data.speed = (+data.speed || 0) + data.agi;
     data.maximum_speed = data.speed * 3;
