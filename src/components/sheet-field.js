@@ -107,6 +107,7 @@ export class SheetField extends Component {
                 inputStyle={inputStyle}
                 readOnly={readOnly}
                 ref={(c) => (this.field = c)}
+                tabIndex={readOnly ? -1 : 0}
                 type={readOnly ? 'text' : type}
                 underlineShow={!readOnly}
                 onBlur={(e) => this.handleBlur(e)}
