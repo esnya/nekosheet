@@ -1,15 +1,19 @@
 import axios, {post, put} from 'axios';
 import {connect} from 'react-redux';
 import {update} from '../actions/character';
+import {edit} from '../actions/editor';
 import {Character as Component} from '../components/character';
 
 export const Character = connect(
     (state) => ({
         ...state.character,
+        edit: state.editor.edit,
         types: state.types,
         readOnly: state.user.id !== state.character.user_id,
     }),
     (dispatch) => ({
+        onChangeEditMode: (mode) => dispatch(edit(mode)),
+
         onChange: (id, key, value) => put(`/${id}/${key}`, {id, key, value})
             .then(({data}) => dispatch(update(data))),
         onDelete: (id, key1, key2) => axios
