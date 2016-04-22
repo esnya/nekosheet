@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {SheetField} from '../../sheet-field';
 import {Table, Thead, Tbody, Tr, Td, Th} from '../../sheet-table';
+import {AbilityRader} from './ability-rader';
 
 export const AbilityTable = ({data, readOnly, changeHandler}) => {
     const lineElements = [
@@ -90,6 +91,9 @@ export const AbilityTable = ({data, readOnly, changeHandler}) => {
 
     return (
         <div>
+            <div style={{height: 0, position: 'relative', textAlign: 'center'}}>
+                <AbilityRader data={data} />
+            </div>
             <Table>
                 <Thead>
                     <Tr>
