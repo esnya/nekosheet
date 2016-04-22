@@ -41,17 +41,79 @@ export const sw2_character_ja = (props) => {
                     readOnly={readOnly}
                 />
             </SheetPaper>
-            <a id="ability" />
-            <SheetPaper>
-                <AbilityTable
-                    changeHandler={changeHandler}
-                    data={data}
-                    readOnly={readOnly}
-                />
-            </SheetPaper>
+            <Row>
+                <Col style={{marginBottom: 16}} width={450}>
+                    <a id="ability" />
+                    <SheetPaper>
+                        <AbilityTable
+                            changeHandler={changeHandler}
+                            data={data}
+                            readOnly={readOnly}
+                        />
+                    </SheetPaper>
+                </Col>
+                <Col style={{marginBottom: 16}} width={450}>
+                    <a id="skill" />
+                    <SheetPaper>
+                        <ItemList
+                            fields={[
+                                {
+                                    key: 'skill',
+                                    label: '技能',
+                                    type: 'select',
+                                    items: [
+                                        'ファイター(近A)',
+                                        'グラップラー(近A)',
+                                        'フェンサー(近B)',
+                                        'シューター(近B)',
+                                        'ソーサラー(魔A)',
+                                        'コンジャラー(魔A)',
+                                        'プリースト(魔A)',
+                                        'フェアリーテイマー(魔A)',
+                                        'マギテック(魔A)',
+                                        'デーモンルーラー(魔A)',
+                                        'スカウト(他B)',
+                                        'レンジャー(他B)',
+                                        'セージ(他B)',
+                                        'エンハンサー(他B)',
+                                        'バード(他B)',
+                                        'ライダー(他B)',
+                                        'ウォーリーダー(他B)',
+                                        'ミスティック(他B)',
+                                    ],
+                                },
+                                {key: 'level', label: 'レベル', type: 'number'},
+                                {
+                                    key: 'magic_power',
+                                    label: '魔力',
+                                    type: 'number',
+                                    readOnly: true,
+                                },
+                                {
+                                    key: 'next_exp',
+                                    label: '次経験点',
+                                    type: 'number',
+                                    readOnly: true,
+                                },
+                                {
+                                    key: 'total_exp',
+                                    label: '累計経験点',
+                                    type: 'number',
+                                    readOnly: true,
+                                },
+                            ]}
+                            items={data.skills}
+                            readOnly={readOnly}
+                            onAppend={appendHandler('skills', {level: 1})}
+                            onChange={listHandler('skills')}
+                            onDelete={deleteHandler('skills')}
+                        />
+                    </SheetPaper>
+                </Col>
+            </Row>
             <a id="standards" />
-            <Row style={{marginBottom: 16}}>
-                <Col width={200}>
+            <Row>
+                <Col style={{marginBottom: 16}} width={200}>
                     <SheetPaper>
                         <BasicStandards
                             changeHandler={changeHandler}
@@ -60,7 +122,7 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col width={200}>
+                <Col style={{marginBottom: 16}} width={200}>
                     <SheetPaper>
                         <SkillStandards
                             changeHandler={changeHandler}
@@ -70,65 +132,9 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
-            <a id="skill" />
-            <SheetPaper>
-                <ItemList
-                    fields={[
-                        {
-                            key: 'skill',
-                            label: '技能',
-                            type: 'select',
-                            items: [
-                                'ファイター(近A)',
-                                'グラップラー(近A)',
-                                'フェンサー(近B)',
-                                'シューター(近B)',
-                                'ソーサラー(魔A)',
-                                'コンジャラー(魔A)',
-                                'プリースト(魔A)',
-                                'フェアリーテイマー(魔A)',
-                                'マギテック(魔A)',
-                                'デーモンルーラー(魔A)',
-                                'スカウト(他B)',
-                                'レンジャー(他B)',
-                                'セージ(他B)',
-                                'エンハンサー(他B)',
-                                'バード(他B)',
-                                'ライダー(他B)',
-                                'ウォーリーダー(他B)',
-                                'ミスティック(他B)',
-                            ],
-                        },
-                        {key: 'level', label: 'レベル', type: 'number'},
-                        {
-                            key: 'magic_power',
-                            label: '魔力',
-                            type: 'number',
-                            readOnly: true,
-                        },
-                        {
-                            key: 'next_exp',
-                            label: '次経験点',
-                            type: 'number',
-                            readOnly: true,
-                        },
-                        {
-                            key: 'total_exp',
-                            label: '累計経験点',
-                            type: 'number',
-                            readOnly: true,
-                        },
-                    ]}
-                    items={data.skills}
-                    readOnly={readOnly}
-                    onAppend={appendHandler('skills', {level: 1})}
-                    onChange={listHandler('skills')}
-                    onDelete={deleteHandler('skills')}
-                />
-            </SheetPaper>
             <a id="feat" />
-            <Row style={{marginBottom: 16}}>
-                <Col>
+            <Row>
+                <Col style={{marginBottom: 16}}>
                     <SheetPaper>
                         <ItemList
                             fields={[
@@ -144,7 +150,7 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col>
+                <Col style={{marginBottom: 16}}>
                     <SheetPaper>
                         <ItemList
                             fields={[
@@ -239,8 +245,8 @@ export const sw2_character_ja = (props) => {
                 readOnly={readOnly}
                 removeHandler={removeHandler}
             />
-            <Row style={{marginBottom: 16}}>
-                <Col width={200}>
+            <Row>
+                <Col style={{marginBottom: 16}} width={200}>
                     <a id="armor" />
                     <SheetPaper>
                         <Armor
@@ -250,7 +256,7 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col width={200}>
+                <Col style={{marginBottom: 16}} width={200}>
                     <a id="shield" />
                     <SheetPaper>
                         <Shield
@@ -286,7 +292,7 @@ export const sw2_character_ja = (props) => {
                 />
             </SheetPaper>
             <Row>
-                <Col>
+                <Col style={{marginBottom: 16}}>
                     <a id="inventory" />
                     <SheetPaper style={{padding: '0 8px'}}>
                         <SheetField
@@ -299,7 +305,7 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col>
+                <Col style={{marginBottom: 16}}>
                     <a id="supply" />
                     <SheetPaper>
                         <ItemList

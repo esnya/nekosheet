@@ -89,19 +89,21 @@ export const AbilityTable = ({data, readOnly, changeHandler}) => {
     });
 
     return (
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th colSpan={2}>能力値</Th>
-                    <Th>成長</Th>
-                    <Th>合計</Th>
-                    <Th>ボーナス</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {lineElements}
-            </Tbody>
-        </Table>
+        <div>
+            <Table>
+                <Thead>
+                    <Tr>
+                        <Th colSpan={2}>能力値</Th>
+                        <Th>成長</Th>
+                        <Th>合計</Th>
+                        <Th>ボーナス</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {lineElements}
+                </Tbody>
+            </Table>
+        </div>
     );
 };
 AbilityTable.propTypes = {
