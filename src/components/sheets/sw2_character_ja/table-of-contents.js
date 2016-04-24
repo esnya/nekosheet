@@ -25,8 +25,8 @@ export class TableOfContents extends Component {
         const Style = {
             Overlay: {
                 position: 'fixed',
-                top: 0,
                 left: 0,
+                top: 64,
             },
             Button: {
                 padding: 6,

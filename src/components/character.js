@@ -136,9 +136,12 @@ export class Character extends Component {
                         </IconButton>
                     }
                     iconElementRight={editIconElement}
+                    style={{
+                        position: 'fixed',
+                    }}
                     title={name}
                 />
-                <div style={{padding: '16px 8px 0'}}>
+                <div style={{padding: '80px 8px 0'}}>
                     <Card style={{margin: '0 8px 16px'}}>
                         {portraitElement}
                         {portraitActionElement}
