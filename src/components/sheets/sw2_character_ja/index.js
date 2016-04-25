@@ -31,6 +31,11 @@ export const sw2_character_ja = (props) => {
     const removeHandler = (key1, key2) => () => onDelete(id, key1, key2);
     const deleteHandler = (list) => (e, key) => onDelete(id, list, key);
 
+    const overflowStyle = {
+        WebkitOverflowScroll: 'touch',
+        overflowX: 'auto',
+    };
+
     return (
         <div>
             <a id="basis" />
@@ -42,9 +47,9 @@ export const sw2_character_ja = (props) => {
                 />
             </SheetPaper>
             <Row>
-                <Col style={{marginBottom: 16}} width={450}>
+                <Col style={{marginBottom: 16, maxWidth: '100%'}} width={450}>
                     <a id="ability" />
-                    <SheetPaper>
+                    <SheetPaper style={overflowStyle}>
                         <AbilityTable
                             changeHandler={changeHandler}
                             data={data}
@@ -52,9 +57,9 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col style={{marginBottom: 16}} width={450}>
+                <Col style={{marginBottom: 16, maxWidth: '100%'}} width={450}>
                     <a id="skill" />
-                    <SheetPaper>
+                    <SheetPaper style={overflowStyle}>
                         <ItemList
                             fields={[
                                 {
@@ -166,8 +171,8 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
-            <Row style={{marginBottom: 16}}>
-                <Col>
+            <Row>
+                <Col style={{marginBottom: 16}}>
                     <a id="language" />
                     <SheetPaper>
                         <ItemList
@@ -184,7 +189,7 @@ export const sw2_character_ja = (props) => {
                         />
                     </SheetPaper>
                 </Col>
-                <Col>
+                <Col style={{marginBottom: 16}}>
                     <a id="honor" />
                     <SheetPaper>
                         <ItemList
