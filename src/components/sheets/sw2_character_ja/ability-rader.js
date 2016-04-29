@@ -1,12 +1,12 @@
 import {zip} from 'lodash';
 import {
+    blue50,
     blue200,
-    blue400,
+    green50,
     green200,
-    green400,
     grey500,
+    red50,
     red200,
-    red400,
 } from 'material-ui/styles/colors';
 import React, {PropTypes} from 'react';
 
@@ -73,18 +73,18 @@ export const AbilityRader = (props) => {
             <g transform={`translate(${radius}, ${radius})`}>
                 <g strokeWidth="2">
                     <Hexagon
-                        fill={blue200}
-                        stroke={blue400}
+                        fill={blue50}
+                        stroke={blue200}
                         values={totalValues}
                     />
                     <Hexagon
-                        fill={green200}
-                        stroke={green400}
+                        fill={green50}
+                        stroke={green200}
                         values={initialValues}
                     />
                     <Hexagon
-                        fill={red200}
-                        stroke={red400}
+                        fill={red50}
+                        stroke={red200}
                         values={baseValues}
                     />
                 </g>
