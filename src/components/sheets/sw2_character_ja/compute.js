@@ -70,6 +70,8 @@ const CorrectionTable = {
     maximum_speed: ['全力移動'],
     hp: ['HP'],
     mp: ['MP'],
+    vit_res_correction: ['生命抵抗力', '生命抵抗'],
+    spr_res_correction: ['精神抵抗力', '精神抵抗'],
     magic_power_correction: ['魔力'],
     protection_correction: ['防護', '防護点'],
     evasion_correction: ['回避', '回避力'],
@@ -121,8 +123,8 @@ export const compute = (data) => {
         .map('level')
         .max();
     computeAbility(data);
-    data.vit_res = data.level + data.vit_bonus;
-    data.spr_res = data.level + data.spr_bonus;
+    data.vit_res = data.level + data.vit_bonus + (data.vit_res_correction || 0);
+    data.spr_res = data.level + data.spr_bonus + (data.spr_res_correction || 0);
     data.hp = (+data.hp || 0) + data.level * 3 + data.vit;
     data.mp = (+data.mp || 0) + (
         data.skills && _(data.skills)
