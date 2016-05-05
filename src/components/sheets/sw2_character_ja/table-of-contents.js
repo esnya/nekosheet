@@ -46,6 +46,7 @@ export class TableOfContents extends Component {
             ['language', '言語'],
             ['honor', '名誉点/アイテム'],
             ['note', '経歴/メモ'],
+            ['general_skill', '一般技能'],
             ['weapon', '武器'],
             ['armor', '鎧'],
             ['shield', '盾'],

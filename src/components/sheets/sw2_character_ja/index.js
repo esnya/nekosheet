@@ -231,17 +231,37 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
-            <a id="note" />
-            <SheetPaper style={{padding: '0 16px'}}>
-                <SheetField
-                    fullWidth
-                    multiLine
-                    label="経歴、メモ"
-                    readOnly={readOnly}
-                    value={data.note}
-                    onChange={changeHandler('note')}
-                />
-            </SheetPaper>
+            <Row>
+                <Col style={{marginBottom: 16}}>
+                    <a id="note" />
+                    <SheetPaper style={{padding: '0 16px'}}>
+                        <SheetField
+                            fullWidth
+                            multiLine
+                            label="経歴、メモ"
+                            readOnly={readOnly}
+                            value={data.note}
+                            onChange={changeHandler('note')}
+                        />
+                    </SheetPaper>
+                </Col>
+                <Col style={{marginBottom: 16}}>
+                    <a id="general_skill" />
+                    <SheetPaper style={{padding: '0 16px'}}>
+                        <ItemList
+                            fields={[
+                                {key: 'general_skill', label: '一般技能'},
+                                {key: 'level', label: 'レベル', type: 'number'},
+                            ]}
+                            items={data.general_skills}
+                            readOnly={readOnly}
+                            onAppend={appendHandler('general_skills')}
+                            onChange={listHandler('general_skills')}
+                            onDelete={deleteHandler('general_skills')}
+                        />
+                    </SheetPaper>
+                </Col>
+            </Row>
             <a id="weapon" />
             <WeaponTable
                 changeHandler={changeHandler}
