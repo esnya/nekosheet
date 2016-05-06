@@ -8,6 +8,7 @@ export class SheetField extends Component {
     static get propTypes() {
         return {
             items: PropTypes.array,
+            inputStyle: PropTypes.object,
             fullWidth: PropTypes.bool,
             label: PropTypes.string,
             readOnly: PropTypes.bool,
@@ -52,6 +53,7 @@ export class SheetField extends Component {
 
         const inputStyle = {
             textAlign: type === 'number' ? 'center' : 'left',
+            ...this.props.inputStyle,
         };
 
         if (!readOnly && type === 'select') {

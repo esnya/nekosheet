@@ -123,6 +123,45 @@ const computeAbilityCorrections = (data) => {
         ));
 };
 
+const FairyProps = [
+    'earth',
+    'water_ice',
+    'fire',
+    'wind',
+    'light',
+    'gloom',
+];
+const computeFairyMagics = (data) => {
+    data.fairy_skill = data.skills &&
+        data.skills.find(({skill}) => skill && skill.match(/^フェアリーテイマー/));
+    data.fairy_level = data.fairy_skill && +data.fairy_skill.level;
+
+    if (data.fairy_level) {
+        data.fairy_class_sum = _(FairyProps)
+            .map((key) => +data[`fairy_${key}`] || 0)
+            .sum();
+
+        data.fairy_special = _(FairyProps)
+            .map((key) => +data[`fairy_${key}`] || 0)
+            .min();
+
+        FairyProps.forEach((key) => {
+            data[`fairy_${key}_others`] =
+                Math.max(data.fairy_level * 2 - data[`fairy_${key}`], 0);
+            data[`fairy_${key}_rank`] = Math.floor(Math.min(
+                data[`fairy_${key}`] +  data[`fairy_${key}_others`] / 2,
+                data[`fairy_${key}`] * 2
+            ));
+            data[`fairy_${key}_summon`] = data[`fairy_${key}`] > 0
+                ? Math.min(
+                    data[`fairy_${key}`] * 2 + 1,
+                    data.fairy_level + 1
+                )
+                : 0;
+        });
+    }
+};
+
 export const compute = (data) => {
     computeAbilityCorrections(data);
     data.level = data.skills && _(data.skills)
@@ -197,6 +236,8 @@ export const compute = (data) => {
     data.protection =
         (+data.armor_protection || 0) + (+data.shield_protection || 0) +
         (+data.protection_correction || 0);
+
+    computeFairyMagics(data);
 
     return data;
 };

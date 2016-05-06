@@ -54,6 +54,7 @@ export class TableOfContents extends Component {
             ['ornament', '装飾品'],
             ['inventory', '所持品'],
             ['supply', '消耗品'],
+            ['fairy', '妖精魔法'],
         ].map(([id, text]) => (
             <MenuItem
                 href={`#${id}`}

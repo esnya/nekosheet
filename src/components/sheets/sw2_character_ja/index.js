@@ -11,6 +11,7 @@ import {Armor} from './armor';
 import {Basis} from './basis';
 import {BasicStandards} from './basic-standards';
 import {CombatStandards} from './combat-standards';
+import {Fairy} from './fairy';
 import {Money} from './money';
 import {OrnamentTable} from './ornament';
 import {Shield} from './shield';
@@ -347,6 +348,14 @@ export const sw2_character_ja = (props) => {
                     </SheetPaper>
                 </Col>
             </Row>
+            <a id="fairy" />
+            <SheetPaper>
+                <Fairy
+                    changeHandler={changeHandler}
+                    data={data}
+                    readOnly={readOnly}
+                />
+            </SheetPaper>
             <TableOfContents />
         </div>
     );
