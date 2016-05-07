@@ -94,6 +94,9 @@ const CorrectionPattern = new RegExp(
 );
 const computeAbilityCorrections = (data) => {
     CorrectionKeys
+        .forEach((key) => (data[key] = 0));
+
+    CorrectionKeys
         .map((key) => data[key])
         .concat((data.feats || []).map((item) => item.effect))
         .concat((data.weapons || []).map((item) => item.note))
