@@ -74,8 +74,8 @@ const CorrectionTable = {
     speed: ['speed', 'spd', '移動力', '移動'],
     limited_speed: ['制限移動'],
     maximum_speed: ['全力移動'],
-    hp: ['HP'],
-    mp: ['MP'],
+    correction_hp: ['HP'],
+    correction_mp: ['MP'],
     vit_res_correction: ['生命抵抗力', '生命抵抗'],
     spr_res_correction: ['精神抵抗力', '精神抵抗'],
     magic_power_correction: ['魔力'],
@@ -170,8 +170,8 @@ export const compute = (data) => {
     computeAbility(data);
     data.vit_res = data.level + data.vit_bonus + (data.vit_res_correction || 0);
     data.spr_res = data.level + data.spr_bonus + (data.spr_res_correction || 0);
-    data.hp = (+data.hp || 0) + data.level * 3 + data.vit;
-    data.mp = (+data.mp || 0) + (
+    data.hp = (+data.correction_hp || 0) + data.level * 3 + data.vit;
+    data.mp = (+data.correction_mp || 0) + (
         data.skills && _(data.skills)
             .filter(({skill}) => skill && skill.match(/\(魔[AB]\)$/))
             .map('level')
