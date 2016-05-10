@@ -14,4 +14,3 @@ session:
     store: database
 types:
     sw2_character_ja: ソード・ワールド2.0/キャラクター
-    sw2_monster_ja: ソード・ワールド2.0/魔物
