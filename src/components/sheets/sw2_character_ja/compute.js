@@ -93,7 +93,7 @@ const CorrectionPattern = new RegExp(
     'gi'
 );
 const computeAbilityCorrections = (data) => {
-    CorrectionKeys
+    Object.keys(CorrectionTable)
         .forEach((key) => (data[key] = 0));
 
     CorrectionKeys
