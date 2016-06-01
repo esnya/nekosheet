@@ -10,6 +10,11 @@ Online character sheet.
 ## Supported sheet types
 - Sowrd World 2.0 (Japanese)
 
+## Features
+- Auto field calculation
+- Correct values from terms in text
+  - e.g. `[Int+1]`
+
 ## Requirements
 - Node.js 5.x
 - SQL Database
