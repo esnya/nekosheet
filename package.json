@@ -4,6 +4,7 @@
   "description": "Online character sheet.",
   "main": "lib/server",
   "scripts": {
+    "prestart": "node scripts/prestart.js",
     "start": "node .",
     "build": "gulp build",
     "production": "gulp production",
@@ -39,15 +40,12 @@
     "knex": "^0.11.4",
     "lodash": "^4.6.1",
     "log4js": "^0.6.33",
-    "mariasql": "^0.2.6",
     "material-ui": "^0.15.0",
-    "mysql2": "^1.0.0-rc.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.1",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.3.1",
-    "sanitize.css": "^3.3.0",
-    "sqlite3": "^3.1.1"
+    "sanitize.css": "^3.3.0"
   }
 }
