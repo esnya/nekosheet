@@ -13,9 +13,6 @@ describe('Server', () => {
         ServerResponse,
     } = http;
 
-    const {getLogger} = require('log4js');
-    const {Logger} = require('log4js/lib/logger');
-
     const {router} = require('../router');
 
     jest.unmock('../server');
@@ -24,9 +21,6 @@ describe('Server', () => {
     let logger, server, sup;
     it('listens as HTTP server', () => {
         express.mockReturnValue(app);
-
-        logger = new Logger();
-        getLogger.mockReturnValue(logger);
 
         server = new Server({
             listen: {
