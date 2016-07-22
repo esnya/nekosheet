@@ -26,11 +26,6 @@ Online character sheet.
   - or any one based Passport.js
 
 ## As a Docker container
-### Build
-```
-$ git clone --recursive https://github.com/ukatama/nekosheet.git
-$ docker build -t ukatama/nekosheet nekosheet
-```
 
 ### Config
 ```
@@ -55,7 +50,7 @@ $ docker run -d --name nekosheet \
     -v /path/to/nekosheet/data:/usr/src/app/tmp \
     -v /path/to/nekosheet/config.json:/usr/src/app/config/local.json:ro \
     --env NODE_ENV=production \
-    ukatama/nekosheet
+    nekorpg/nekosheet
 ```
 
 ## As a Node.ja application
